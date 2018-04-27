@@ -49,13 +49,13 @@ export class ChatService {
 						
 		
 	*/
-	addMessage(name: string, message: string): Observable<ChatLine> {
+	addMessage(name: string, message: string): Observable<any> {
 		let insertToChat = { username: name, content: message};
-		return this.http.post<ChatLine>(`${this.uri}api/add`, insertToChat, httpOptions);
-			/*.pipe(
+		return this.http.post<ChatLine>(`${this.uri}api/add`, insertToChat, httpOptions)
+			.pipe(
 				tap((chatlog:ChatLine) => this.log(`Adding ${chatlog.username}: ${chatlog.content}`)),
 				catchError(this.handleError('addMessage'))
-			);*/
+			);
 			//.subscribe(res => this.log(`Added "${name}: ${message} to chatlog"`));
 		//this.cLog.push({ username: name, content: message}); // pushes ChatLine(username, content)
 	}
