@@ -1,2 +1,21 @@
-<app-chat-log></app-chat-log>
-<app-add-message></app-add-message>
+<p>
+  Chat Window displays "Username: Message"
+</p>
+<ul class="chatLog">
+	<li *ngFor="let message of chatLog">
+			<span class="badge">{{message.username}} : {{message.content}} </span>
+	</li>
+</ul>
+
+<p>
+ Enter Message (100 char max)
+</p>
+<div>
+	<label>Message:
+		<input #message (keyup.enter)="add(message.value); message.value='';" maxlength="100"/>
+	</label>
+	
+  <button (click)="add(message.value); message.value='';">
+    Add
+  </button>
+</div>
