@@ -1,0 +1,8 @@
+<p>
+  Chat Window displays "Username: Message"
+</p>
+<ul class="chatLog">
+	<li *ngFor="let message of chatLog">
+			<span class="badge">{{message.username}} : {{message.content}} </span>
+	</li>
+</ul>

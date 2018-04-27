@@ -1,0 +1,12 @@
+<p>
+ Enter Message (100 char max)
+</p>
+<div>
+	<label>Message:
+		<input #message (keyup.enter)="add(message.value); message.value='';" maxlength="100"/>
+	</label>
+	
+  <button (click)="add(message.value); message.value='';">
+    Add
+  </button>
+</div>

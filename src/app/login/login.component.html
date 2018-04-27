@@ -1,0 +1,5 @@
+<h2> Enter a Username: <h2>
+<input #username (keyup.enter)="login(username.value)" />
+<a routerLink="/chat"><button (click)="login(username.value)" >
+		Login
+</button></a>
