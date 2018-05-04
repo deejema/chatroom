@@ -18,5 +18,6 @@ export class LoginComponent implements OnInit {
 	login(name: string) {
 		this.chatService.setUsername(name);
 		// Need a way to change page to /chat
+		this.router.navigate(['chat']);
 	}
 }

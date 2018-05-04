@@ -1,18 +1,32 @@
-const express = require('express'),
-      path = require('path'),
-      bodyParser = require('body-parser'),
-      cors = require('cors'),
-      mongoose = require('mongoose'),
-// API file for interacting with MongoDB
-      api = require('./server/routes/api');
+const express = require('express');
+const app = express();
 
+const path = require('path');
+const bodyParser = require('body-parser');
+// Cross-Origin resource sharing
+const cors = require('cors');
+// Mongoose api
+const mongoose = require('mongoose');
+// API file for interacting with MongoDB
+const api = require('./server/routes/api');
+
+
+
+const http = require('http');
+const server = http.Server(app);
+// Used for bidirectional communication using Socket api
+const socketIO = require('socket.io');
+const io = socketIO(server);
+
+
+
+// Connects to mongo db
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017/chat').then(
     () => {console.log('Database is connected') },
     err => { console.log('Can not connect to the database'+ err)}
   );
 
-const app = express();
 
 // Parsers
 app.use(bodyParser.json());
@@ -25,8 +39,24 @@ const port = process.env.PORT || 3000;
 app.use(express.static(path.join(__dirname, 'dist'))); // Opens up app
 app.use('/api', api);
 
-const server = app.listen(port, function(){
-  console.log('Listening on port ' + port);
+/*const server = app.listen(port, function(){
+	console.log('Listening on port ' + port);
+});*/
+
+// Allows io to determine when a user has connected to the server.  client sends to data
+io.on('connection',(socket) => {
+	console.log('user connected');
+	
+	socket.on('new-message',(message) => {
+		console.log(message);
+		/*	broadcasts to all users except the sender	*/
+		socket.broadcast.emit('updateChat', message);
+	});
+	
+
+});
+server.listen(port, () => {
+	console.log('Listening on port ' + port);
 });
 /*
 

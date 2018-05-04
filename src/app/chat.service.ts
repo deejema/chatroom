@@ -10,6 +10,10 @@ import { catchError, map, tap } from 'rxjs/operators';
 const httpOptions = {
 	headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
+
+// Used for bidirectional communication - used for updating client when server is updated
+import * as io from 'socket.io-client';
+
 /*
 	Service that deals with chat-related functionality such as obtaining messages from the server
 	and adding messages to the server
@@ -19,20 +23,63 @@ export class ChatService {
 	cLog: ChatLine[]=[];
 	private uri = 'http://localhost:3000/';
 	//cLog: string[]=[];  // string ver
-	
+	private socket;
 	username: string;
 	constructor(private messageService: MessageService,
-				private http: HttpClient) { }
+				private http: HttpClient) { 
 
+	}
+	initSocket(): void {
+		// This prompts 'user connected' for console in server.js when service is active
+		this.socket = io(this.uri); 
+	}
+	getMessage(): Observable<ChatLine> { 
+		return new Observable<ChatLine>(observer => {
+		this.socket.on('updateChat', (data) => {
+				/*	convert data String into a ChatLine object */
+				let res = data.split(':');
+				let name = res[0]; // save name 
+				res.shift(); // pop first element in res
+				let message = res.join(':'); // save content, merges array together if more than one ":" exists
+				observer.next({username: name, content: message});
+			});
+		});
+	}
+	
 	/* Get chat log from server */
 	getLog(): Observable<ChatLine[]> {
-		return this.http.get<ChatLine[]>(`${this.uri}api/getchat`)
+		return new Observable<ChatLine[]>(observer => {
+			this.socket.on('updateChat', (data) => observer.next(data));
+		});
+		// send an indiviual message and just append locally, no need to get ENTIRE chat log every time
+		
+		/*this.socket.on('updateChat', (message) => {
+			console.log(message);
+			return this.getChatFromServer();
+		});
+		
+		console.log('did not update from socket');
+		return this.getChatFromServer();
+		*/
+		
+		/*return Observable.create((observer) => {
+				this.socket.on('updateChat', (message) => {
+					return this.getChatFromServer();
+				});
+		});*/			
+		/*return this.http.get<ChatLine[]>(`${this.uri}api/getchat`)
 			.pipe(
 				tap(chatlog=>this.log('Getting chat')),
 				catchError(this.handleError('getLog',[])));
 		//.map(res=> { return res});
 		//return of(this.cLog);
-		
+		*/
+	}
+	getChatFromServer() : Observable<ChatLine[]> {
+		return this.http.get<ChatLine[]>(`${this.uri}api/getchat`)
+			.pipe(
+				tap(chatlog=>this.log('Getting chat')),
+				catchError(this.handleError('getLog',[])));
 	}
 
 	/* Add a message to the chat log */
@@ -53,7 +100,11 @@ export class ChatService {
 		let insertToChat = { username: name, content: message};
 		return this.http.post<ChatLine>(`${this.uri}api/add`, insertToChat, httpOptions)
 			.pipe(
-				tap((chatlog:ChatLine) => this.log(`Adding ${chatlog.username}: ${chatlog.content}`)),
+				//tap((chatlog:ChatLine) => this.log(`Adding ${name}: ${message}`)),
+				tap((chatlog:ChatLine) => {
+					this.socket.emit('new-message',`${name}: ${message}`);
+					this.log(`Added ${name}: ${message}`);
+				}),
 				catchError(this.handleError('addMessage'))
 			);
 			//.subscribe(res => this.log(`Added "${name}: ${message} to chatlog"`));
@@ -62,17 +113,19 @@ export class ChatService {
 
 	
 	
-	/*	Logs the user into the chatroom*/
+	/*	Logs the user into the chatroom */
 	setUsername(name: string): void {
 		this.username = name;
 		this.log('Username \'' + this.username + '\': logged in');
 	}
 	
-	/* Returns the username */
+	/* Returns the username and emits a broadcast to the socket server */
 	getUsername(): string {
 		this.log('Username \'' + this.username + '\':  registered in chat');
 		return this.username;
+		
 	}
+	
 	/**
 	* Handle Http operation that failed.
 	* Let the app continue.

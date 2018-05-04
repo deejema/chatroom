@@ -1,4 +1,4 @@
-<p>
+<!--<p>
   Chat Window displays "Username: Message"
 </p>
 <ul class="chatLog">
@@ -19,3 +19,18 @@
     Add
   </button>
 </div>
+-->
+
+<div id="wrapper">
+    <div id="menu">
+        <p class="welcome">Welcome, {{ username }}<b></b></p>
+        <div style="clear:both"></div>
+    </div>
+     
+    <div id="chatbox" #scrollMe [scrollTop]="scrollMe.scrollHeight"><p *ngFor="let message of chatLog">{{message.username}} : {{message.content}}<br/></p></div>
+   	<label>Message:
+		<input #message (keyup.enter)="add(message.value); message.value='';" maxlength="100"/>
+	</label>
+	<button id="sendmessage"(click)="add(message.value); message.value='';"> Send </button>    
+</div>
+	
