@@ -112,4 +112,4 @@ server.listen(port, () => {
 	console.log('Listening on port ' + port);
 });
 
-ParseServer.createLiveQueryServer(httpServer);
+ParseServer.createLiveQueryServer(server);
