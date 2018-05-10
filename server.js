@@ -13,6 +13,7 @@ var ParseServer = require('parse-server').ParseServer;
 // API file for interacting with MongoDB
 const api = require('./server/routes/api');
 */
+var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 var api = new ParseServer({
   databaseURI: databaseUri || 'mongodb://localhost:27017/chat',
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
