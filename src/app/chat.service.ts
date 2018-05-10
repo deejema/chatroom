@@ -35,7 +35,7 @@ export class ChatService {
 		Parse.initialize("chatapp", "", "masterkey");
 		let parse = require('parse');
 		
-		parse.serverURL = 'https://desolate-bayou-57447.herokuapp.com/parse';
+		//parse.serverURL = 'https://desolate-bayou-57447.herokuapp.com/parse';
 		
 	}
 	initSocket(): void {
@@ -55,7 +55,7 @@ export class ChatService {
 		});
 	}
 	
-	// Delete later when refactoring
+	// Delete later when cleaning code
 	getLog(): Observable<ChatLine[]> {
 		return new Observable<ChatLine[]>(observer => {
 			this.socket.on('updateChat', (data) => observer.next(data));
@@ -65,10 +65,12 @@ export class ChatService {
 	
 	/* Get chat log from server */
 	getChatFromServer() : Observable<ChatLine[]> {
+		
+		
 		return this.http.get<ChatLine[]>(`${this.uri}getchat`)
 			.pipe(
 				tap(chatlog=>this.log('Getting chat')),
-				catchError(this.handleError('getLog',[])));
+				catchError(this.handleError('getChatFromServer',[])));
 	}
 
 	/* Add a message to the chat log */

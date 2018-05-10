@@ -75,7 +75,11 @@ app.use(mountPath, api);
 
 // Get request to receive all messages from server
 app.get('/getchat', function(req, res) {
-
+	/*Parse.Cloud.run('getLog')
+	.then(function(chatline) {
+		res.json(chatline);
+	});
+	*/
 	ChatLine.find(function(err, chatline) {
 		if(err) {
 			console.log(err);
