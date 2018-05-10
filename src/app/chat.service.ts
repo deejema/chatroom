@@ -21,7 +21,7 @@ import * as io from 'socket.io-client';
 @Injectable()
 export class ChatService {
 	cLog: ChatLine[]=[];
-	private uri = 'https://desolate-bayou-57447.herokuapp.com/';
+	private uri = 'https://desolate-bayou-57447.herokuapp.com/parse/';
 	//cLog: string[]=[];  // string ver
 	private socket;
 	username: string;

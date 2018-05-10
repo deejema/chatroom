@@ -32,21 +32,21 @@ const socketIO = require('socket.io');
 const io = socketIO(server);
 
 var ChatLine = require('./models/ChatLine');
-
+/*
 // Connects to mongo db
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017/chat').then(
     () => {console.log('Database is connected') },
     err => { console.log('Can not connect to the database'+ err)}
   );
-
+*/
 
 // Parsers
 app.use(bodyParser.json());
 app.use(cors());
 
 // Define the port number
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 1337;
 
 // API location
 app.use(express.static(path.join(__dirname, 'dist'))); // Opens up app
