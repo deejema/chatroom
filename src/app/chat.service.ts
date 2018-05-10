@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/Observable'; // Class from RxJS library
 import { of } from 'rxjs/observable/of';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
+import * as Parse from 'parse';
 const httpOptions = {
 	headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -14,12 +15,15 @@ const httpOptions = {
 // Used for bidirectional communication - used for updating client when server is updated
 import * as io from 'socket.io-client';
 
+
+
 /*
 	Service that deals with chat-related functionality such as obtaining messages from the server
 	and adding messages to the server
 */
 @Injectable()
 export class ChatService {
+	
 	cLog: ChatLine[]=[];
 	private uri = 'https://desolate-bayou-57447.herokuapp.com/parse/';
 	//private uri = 'http://localhost:3000/';
@@ -28,7 +32,11 @@ export class ChatService {
 	username: string;
 	constructor(private messageService: MessageService,
 				private http: HttpClient) { 
-
+		Parse.initialize("chatapp");
+		let parse = require('parse');
+		
+		parse.serverURL = 'https://desolate-bayou-57447.herokuapp.com/parse';
+		
 	}
 	initSocket(): void {
 		// This prompts 'user connected' for console in server.js when service is active
