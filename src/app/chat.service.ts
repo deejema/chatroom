@@ -33,7 +33,7 @@ export class ChatService {
 	constructor(private messageService: MessageService,
 				private http: HttpClient) { 
 		Parse.initialize("chatapp", "", "masterkey");
-		let parse = require('parse');
+		//let parse = require('parse');
 		
 		//parse.serverURL = 'https://desolate-bayou-57447.herokuapp.com/parse';
 		
