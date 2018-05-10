@@ -25,7 +25,7 @@ import * as io from 'socket.io-client';
 export class ChatService {
 	
 	cLog: ChatLine[]=[];
-	private uri = 'https://desolate-bayou-57447.herokuapp.com/';
+	private uri = 'https://desolate-bayou-57447.herokuapp.com/parse/';
 	//private uri = 'http://localhost:3000/';
 	//cLog: string[]=[];  // string ver
 	private socket;
@@ -55,6 +55,7 @@ export class ChatService {
 		});
 	}
 	
+	// Delete later when refactoring
 	getLog(): Observable<ChatLine[]> {
 		return new Observable<ChatLine[]>(observer => {
 			this.socket.on('updateChat', (data) => observer.next(data));
