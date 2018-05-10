@@ -55,35 +55,8 @@ export class ChatService {
 		});
 	}
 	
+
 	/* Get chat log from server */
-	getLog(): Observable<ChatLine[]> {
-		return new Observable<ChatLine[]>(observer => {
-			this.socket.on('updateChat', (data) => observer.next(data));
-		});
-		// send an indiviual message and just append locally, no need to get ENTIRE chat log every time
-		
-		/*this.socket.on('updateChat', (message) => {
-			console.log(message);
-			return this.getChatFromServer();
-		});
-		
-		console.log('did not update from socket');
-		return this.getChatFromServer();
-		*/
-		
-		/*return Observable.create((observer) => {
-				this.socket.on('updateChat', (message) => {
-					return this.getChatFromServer();
-				});
-		});*/			
-		/*return this.http.get<ChatLine[]>(`${this.uri}api/getchat`)
-			.pipe(
-				tap(chatlog=>this.log('Getting chat')),
-				catchError(this.handleError('getLog',[])));
-		//.map(res=> { return res});
-		//return of(this.cLog);
-		*/
-	}
 	getChatFromServer() : Observable<ChatLine[]> {
 		return this.http.get<ChatLine[]>(`${this.uri}getchat`)
 			.pipe(

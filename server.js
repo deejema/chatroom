@@ -73,16 +73,20 @@ var mountPath = process.env.PARSE_Mount || '/parse';
 app.use(mountPath, api);
 //---------------------------------------------------------
 
-// Get request to receive messages from server
+// Get request to receive all messages from server
 app.get('/getchat', function(req, res) {
-	ChatLine.find(function(err, chatline) {
+	Parse.Cloud.run('getLog')
+	.then(function(chatline) {
+		res.json(chatline);
+	});
+	/*ChatLine.find(function(err, chatline) {
 		if(err) {
 			console.log(err);
 		}
 		else {
 			res.json(chatline);
 		}
-	});
+	});*/
 });
 
 // Send a post request to add messages to server
