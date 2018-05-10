@@ -55,7 +55,13 @@ export class ChatService {
 		});
 	}
 	
-
+	getLog(): Observable<ChatLine[]> {
+		return new Observable<ChatLine[]>(observer => {
+			this.socket.on('updateChat', (data) => observer.next(data));
+		});
+		
+	}
+	
 	/* Get chat log from server */
 	getChatFromServer() : Observable<ChatLine[]> {
 		return this.http.get<ChatLine[]>(`${this.uri}getchat`)
