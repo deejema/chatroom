@@ -21,7 +21,8 @@ import * as io from 'socket.io-client';
 @Injectable()
 export class ChatService {
 	cLog: ChatLine[]=[];
-	private uri = 'https://desolate-bayou-57447.herokuapp.com/parse/';
+	//private uri = 'https://desolate-bayou-57447.herokuapp.com/parse/';
+	private uri = 'http://localhost:3000/';
 	//cLog: string[]=[];  // string ver
 	private socket;
 	username: string;
@@ -76,7 +77,7 @@ export class ChatService {
 		*/
 	}
 	getChatFromServer() : Observable<ChatLine[]> {
-		return this.http.get<ChatLine[]>(`${this.uri}api/getchat`)
+		return this.http.get<ChatLine[]>(`${this.uri}getchat`)
 			.pipe(
 				tap(chatlog=>this.log('Getting chat')),
 				catchError(this.handleError('getLog',[])));
@@ -98,7 +99,7 @@ export class ChatService {
 	*/
 	addMessage(name: string, message: string): Observable<any> {
 		let insertToChat = { username: name, content: message};
-		return this.http.post<ChatLine>(`${this.uri}api/add`, insertToChat, httpOptions)
+		return this.http.post<ChatLine>(`${this.uri}add`, insertToChat, httpOptions)
 			.pipe(
 				//tap((chatlog:ChatLine) => this.log(`Adding ${name}: ${message}`)),
 				tap((chatlog:ChatLine) => {
