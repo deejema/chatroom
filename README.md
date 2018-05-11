@@ -11,3 +11,7 @@ uses a mongo db 'chat' for storing messages
 
 'ng build' to build
 'node server.js' to start server
+
+
+References
+https://github.com/igorlima/deploy-express-with-mongoose-on-heroku
