@@ -112,7 +112,9 @@ io.on('connection',(socket) => {
 		/*	broadcasts to all users except the sender	*/
 		socket.broadcast.emit('updateChat', message);
 	});
-	
+	socket.on('disconnect', function() {
+		console.log(socket.id);
+	});
 
 });
 server.listen(port, () => {
