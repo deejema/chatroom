@@ -25,10 +25,10 @@ export class ChatWindowComponent implements OnInit {
 	initSocketConnection() : void {
 		this.chatService.initSocket();
 		
+		// Used by socket to see if other users have emitted a broadcast and will update the chatlog
 		this.ioConnection = this.chatService.getMessage().subscribe((chatLine:ChatLine) => {
 			this.chatLog.push(chatLine);
 		});
-		// this.ioConnection = this.chatService.getMessage() stuff
 	}
 	
 	/*	Gets the entire chat from the server.  Should only be called once	*/

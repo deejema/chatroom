@@ -66,6 +66,7 @@ export class ChatService {
 	/* Get chat log from server */
 	getChatFromServer() : Observable<ChatLine[]> {
 		
+			this.log('alagbfgfhdfghgfdla');
 		Parse.Cloud.run('getLog')
 		.then(function(res) {
 			this.log('alala');
