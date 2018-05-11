@@ -32,7 +32,7 @@ export class ChatService {
 	username: string;
 	constructor(private messageService: MessageService,
 				private http: HttpClient) { 
-		Parse.initialize("chatapp", "", "masterkey");
+		//Parse.initialize("chatapp", "", "masterkey");
 		//let parse = require('parse');
 		
 		//parse.serverURL = 'https://desolate-bayou-57447.herokuapp.com/parse';
@@ -65,13 +65,15 @@ export class ChatService {
 	
 	/* Get chat log from server */
 	getChatFromServer() : Observable<ChatLine[]> {
-		
+		/*
 			this.log('alagbfgfhdfghgfdla');
 		Parse.Cloud.run('getLog')
 		.then(function(res) {
 			this.log('alala');
 			return res;
 		});
+		*/
+		
 		return this.http.get<ChatLine[]>(`${this.uri}getchat`)
 			.pipe(
 				tap(chatlog=>this.log('Getting chat')),
