@@ -4,13 +4,14 @@ Parse.Cloud.define('hello', function(req, res) {
 
 Parse.Cloud.define('getLog', function(req, res) {
 	Parse.serverURL = 'https://desolate-bayou-57447.herokuapp.com/parse';
+	Parse.Cloud.useMasterKey();
 	var query = new Parse.Query("chat");
 	query.find({
 		error: function(err) {
-			response.error(err)
+			return response.error(err)
 		},
 		success: function(res) {
-			response.success(res)
+			return response.success(res)
 		}
 	});
 });
