@@ -31,7 +31,7 @@ var api = new ParseServer({
 
 //----------------------------------------------------
 const http = require('http');
-const server = http.Server(app);
+const server = http.createServer(app);
 // Used for bidirectional communication using Socket api
 const socketIO = require('socket.io');
 const io = socketIO(server);
@@ -69,6 +69,7 @@ app.use('/api', api);
 */
 
 //4444444------------------------------------------------
+// Serve the Parse API on the /parse URL prefix (parse is default
 var mountPath = process.env.PARSE_Mount || '/parse';
 app.use(mountPath, api);
 //---------------------------------------------------------
