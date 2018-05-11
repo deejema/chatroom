@@ -15,7 +15,7 @@ const api = require('./server/routes/api');
 */
 
 //111111-------------------------------------------------
-// Set up parse server
+/*// Set up parse server
 var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 var api = new ParseServer({
   databaseURI: databaseUri || 'mongodb://localhost:27017/chat',
@@ -28,7 +28,7 @@ var api = new ParseServer({
     classNames: ["Posts", "Comments"] // List of classes to support for query subscriptions
   }
 });
-
+*/
 //----------------------------------------------------
 const http = require('http');
 const server = http.Server(app);
@@ -39,14 +39,14 @@ const io = socketIO(server);
 var ChatLine = require('./models/ChatLine');
 
 //22222222--------------------------------------------------------
-/*
+
 // Connects to mongo db
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/chat').then(
+mongoose.connect('mongodb://heroku_50185dzv:mfdmdshaa6cujscrmlh52np8il@ds119930.mlab.com:19930/heroku_50185dzv').then(
     () => {console.log('Database is connected') },
     err => { console.log('Can not connect to the database'+ err)}
   );
-*/
+
 //--------------------------------------------------------
 
 // Parsers
@@ -55,8 +55,8 @@ app.use(cors());
 
 // Define the port number
 //33333333---------------------------------------------------------
-const port = process.env.PORT || 1337;
-//const port = process.env.PORT || 3000;
+//const port = process.env.PORT || 1337;
+const port = process.env.PORT || 3000;
 //----------------------------------------------------------
 
 // API location
@@ -69,13 +69,17 @@ app.use('/api', api);
 */
 
 //4444444------------------------------------------------
-var mountPath = process.env.PARSE_Mount || '/parse';
-app.use(mountPath, api);
+//var mountPath = process.env.PARSE_Mount || '/parse';
+//app.use(mountPath, api);
 //---------------------------------------------------------
 
 // Get request to receive all messages from server
 app.get('/getchat', function(req, res) {
-
+	/*Parse.Cloud.run('getLog')
+	.then(function(chatline) {
+		res.json(chatline);
+	});
+	*/
 	ChatLine.find(function(err, chatline) {
 		if(err) {
 			console.log(err);

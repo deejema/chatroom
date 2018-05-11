@@ -1,0 +1,16 @@
+{"message":"unable to parse request 2probe","stack":"SyntaxError: Unexpected token p in JSON at position 1\n    at JSON.parse (<anonymous>)\n    at WebSocket.parseWebsocket.on.request [as internalOnMessage] (C:\\Users\\Taike\\Documents\\Angular\\chatroom-app\\node_modules\\parse-server\\lib\\LiveQuery\\ParseLiveQueryServer.js:251:26)\n    at onServerMessage (C:\\Users\\Taike\\Documents\\Angular\\chatroom-app\\node_modules\\uws\\uws.js:19:15)","level":"error","timestamp":"2018-05-11T02:01:04.581Z"}
+{"level":"info","message":"Client disconnect: undefined","timestamp":"2018-05-11T02:01:04.586Z"}
+{"level":"error","message":"Can not find client undefined on disconnect","timestamp":"2018-05-11T02:01:04.587Z"}
+{"level":"info","message":"Client disconnect: undefined","timestamp":"2018-05-11T02:01:15.522Z"}
+{"level":"error","message":"Can not find client undefined on disconnect","timestamp":"2018-05-11T02:01:15.524Z"}
+{"level":"info","message":"Client disconnect: undefined","timestamp":"2018-05-11T02:01:30.827Z"}
+{"level":"error","message":"Can not find client undefined on disconnect","timestamp":"2018-05-11T02:01:30.829Z"}
+{"message":"unable to parse request 2probe","stack":"SyntaxError: Unexpected token p in JSON at position 1\n    at JSON.parse (<anonymous>)\n    at WebSocket.parseWebsocket.on.request [as internalOnMessage] (C:\\Users\\Taike\\Documents\\Angular\\chatroom-app\\node_modules\\parse-server\\lib\\LiveQuery\\ParseLiveQueryServer.js:251:26)\n    at onServerMessage (C:\\Users\\Taike\\Documents\\Angular\\chatroom-app\\node_modules\\uws\\uws.js:19:15)","level":"error","timestamp":"2018-05-11T02:02:33.294Z"}
+{"level":"info","message":"Client disconnect: undefined","timestamp":"2018-05-11T02:02:33.299Z"}
+{"level":"error","message":"Can not find client undefined on disconnect","timestamp":"2018-05-11T02:02:33.300Z"}
+{"message":"unable to parse request 2probe","stack":"SyntaxError: Unexpected token p in JSON at position 1\n    at JSON.parse (<anonymous>)\n    at WebSocket.parseWebsocket.on.request [as internalOnMessage] (C:\\Users\\Taike\\Documents\\Angular\\chatroom-app\\node_modules\\parse-server\\lib\\LiveQuery\\ParseLiveQueryServer.js:251:26)\n    at onServerMessage (C:\\Users\\Taike\\Documents\\Angular\\chatroom-app\\node_modules\\uws\\uws.js:19:15)","level":"error","timestamp":"2018-05-11T02:04:07.704Z"}
+{"level":"info","message":"Client disconnect: undefined","timestamp":"2018-05-11T02:04:07.710Z"}
+{"level":"error","message":"Can not find client undefined on disconnect","timestamp":"2018-05-11T02:04:07.711Z"}
+{"message":"unable to parse request 2probe","stack":"SyntaxError: Unexpected token p in JSON at position 1\n    at JSON.parse (<anonymous>)\n    at WebSocket.parseWebsocket.on.request [as internalOnMessage] (C:\\Users\\Taike\\Documents\\Angular\\chatroom-app\\node_modules\\parse-server\\lib\\LiveQuery\\ParseLiveQueryServer.js:251:26)\n    at onServerMessage (C:\\Users\\Taike\\Documents\\Angular\\chatroom-app\\node_modules\\uws\\uws.js:19:15)","level":"error","timestamp":"2018-05-11T02:05:52.920Z"}
+{"level":"info","message":"Client disconnect: undefined","timestamp":"2018-05-11T02:05:52.924Z"}
+{"level":"error","message":"Can not find client undefined on disconnect","timestamp":"2018-05-11T02:05:52.924Z"}
