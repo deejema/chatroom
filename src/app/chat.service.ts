@@ -68,6 +68,7 @@ export class ChatService {
 		
 		Parse.Cloud.run('getLog')
 		.then(function(res) {
+			this.log('alala');
 			return JSON.stringify(res);
 		});
 		return this.http.get<ChatLine[]>(`${this.uri}getchat`)
