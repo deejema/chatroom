@@ -32,7 +32,6 @@ var api = new ParseServer({
 
 var Parse = require('parse/node');
 Parse.initialize("chatapp");
-Parse.serverURL = 'https://desolate-bayou-57447.herokuapp.com/parse'
 //----------------------------------------------------
 const http = require('http');
 const server = http.createServer(app);
@@ -59,8 +58,8 @@ app.use(cors());
 
 // Define the port number
 //33333333---------------------------------------------------------
-//const port = process.env.PORT || 1337;
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 1337;
+//const port = process.env.PORT || 3000;
 //----------------------------------------------------------
 
 // API location
@@ -86,6 +85,7 @@ app.get('/getchat', function(req, res) {
 		res.json(chatline);
 	});
 	*/
+	console.log('get chat stuff ');
 	ChatLine.find(function(err, chatline) {
 		if(err) {
 			console.log(err);
