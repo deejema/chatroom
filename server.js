@@ -21,7 +21,7 @@ var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 var api = new ParseServer({
   databaseURI: databaseUri || 'mongodb://heroku_50185dzv:mfdmdshaa6cujscrmlh52np8il@ds119930.mlab.com:19930/heroku_50185dzv',
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
-  appId: process.env.APP_ID || 'chatapp',
+  appId: process.env.APP_ID || '12345',
   masterKey: process.env.MASTER_KEY || 'masterkey', //Add your master key here. Keep it secret!
   serverURL: process.env.SERVER_URL || 'https://desolate-bayou-57447.herokuapp.com/parse',  // Don't forget to change to https if needed
   clientKey: 'clientkey',
@@ -31,7 +31,9 @@ var api = new ParseServer({
 });
 
 var Parse = require('parse/node');
-Parse.initialize("chatapp");
+Parse.initialize("12345");
+Parse.serverURL = 'https://desolate-bayou-57447.herokuapp.com/parse';
+
 //----------------------------------------------------
 const http = require('http');
 const server = http.createServer(app);
@@ -85,7 +87,6 @@ app.get('/getchat', function(req, res) {
 		res.json(chatline);
 	});
 	*/
-	console.log('get chat stuff ');
 	ChatLine.find(function(err, chatline) {
 		if(err) {
 			console.log(err);
