@@ -155,8 +155,8 @@ chat.save();
 */
 app.post('/add', function(req, res) {
 	let chat = new Chat();
-	chat.set("username", "TestFromParse");
-	chat.set("content","I am from parse test");
+	chat.set("username", res.username);
+	chat.set("content",res.content);
 	chat.save()
 		.then(item => {
 		res.status(200).json({'ChatLine': 'Chat added successfully'});
