@@ -142,11 +142,3 @@ io.on('connection',(socket) => {
 var Parse = require('parse/node');
 Parse.initialize("12345");
 Parse.serverURL = 'https://desolate-bayou-57447.herokuapp.com/parse';
-
-var obj = new Parse.Object('chat');
-var query = new Parse.Query('chat');
-var subscription = query.subscribe();
-
-subscription.on('open', function() {
-	console.log('open');
-});
