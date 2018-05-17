@@ -154,11 +154,13 @@ chat.save();
 */
 
 var query = new Parse.Query(Chat);
-query.find({
-	success: function(results) {
+query.limit(1000);
+
+query.find().then(
+	function(results) {
 		console.log("got shit: " + results.length);
-	}
-	error: function(error) {
+	},
+	function(error) {
 		console.log("Error: " + error.code + " " + error.message);
 	}
-});
+);
