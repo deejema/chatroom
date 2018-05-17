@@ -144,3 +144,9 @@ ParseServer.createLiveQueryServer(server,
 var Parse = require('parse/node');
 Parse.initialize("12345");
 Parse.serverURL = 'https://desolate-bayou-57447.herokuapp.com/parse';
+
+var Chat = Parse.Object.extend("chat");
+let chat = new Chat();
+chat.set("username", "TestFromParse");
+chat.set("content","I am from parse test");
+chat.save();
