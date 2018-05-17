@@ -31,8 +31,8 @@ var api = new ParseServer({
 });
 
 var Parse = require('parse/node');
-Parse.initialize("12345");
-Parse.serverURL = 'https://desolate-bayou-57447.herokuapp.com/parse';
+//Parse.initialize("12345");
+//Parse.serverURL = 'https://desolate-bayou-57447.herokuapp.com/parse';
 //----------------------------------------------------
 const http = require('http');
 const server = http.createServer(app);
@@ -126,4 +126,18 @@ app.listen(port, () => {
 	console.log('Listening on port ' + port);
 });
 
-ParseServer.createLiveQueryServer(server, api);
+ParseServer.createLiveQueryServer(server, 
+	{
+	  appId: '12345',
+	  masterKey: 'masterkey',
+	  keyPairs: {
+		"restAPIKey": "",
+		"javascriptKey": "",
+		"clientKey": "clientkey",
+		"windowsKey": "",
+		"masterKey": ""
+	  },
+	  serverURL: 'https://desolate-bayou-57447.herokuapp.com/parse',
+	  websocketTimeout: 10 * 1000,
+	  cacheTimeout: 60 * 600 * 1000,
+	});
