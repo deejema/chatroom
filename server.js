@@ -35,8 +35,9 @@ Parse.initialize("12345");
 Parse.serverURL = 'https://desolate-bayou-57447.herokuapp.com/parse';
 
 //----------------------------------------------------
-const http = require('http');
-const server = http.createServer(app);
+//const http = require('http');
+//const server = http.createServer(app);
+
 // Used for bidirectional communication using Socket api
 const socketIO = require('socket.io');
 const io = socketIO(server);
@@ -123,8 +124,13 @@ io.on('connection',(socket) => {
 	});
 
 });
+
+app.listen(port, () => {
+	console.log('Listening on port ' + port);
+});
+/*
 server.listen(port, () => {
 	console.log('Listening on port ' + port);
 });
-
+*/
 ParseServer.createLiveQueryServer(server);
