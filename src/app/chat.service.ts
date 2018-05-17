@@ -34,7 +34,7 @@ export class ChatService {
 	constructor(private messageService: MessageService,
 				private http: HttpClient) { 
 		
-		let query = new Parse.Query('Chat');
+		//let query = new Parse.Query('Chat');
 		var Parse = require('parse');
 		//Parse.initialize("chatapp", "", "masterkey");
 		
