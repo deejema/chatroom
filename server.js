@@ -171,3 +171,6 @@ query.find().then(
 );
 */
 let subscription = query.subscribe();
+subscription.on('open', () => {
+ console.log('subscription opened');
+});
