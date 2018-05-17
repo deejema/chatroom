@@ -125,21 +125,7 @@ app.listen(port, () => {
 	console.log('Listening on port ' + port);
 });
 // ------------------------------------------------------------
-ParseServer.createLiveQueryServer(server, 
-	{
-	  appId: '12345',
-	  masterKey: 'masterkey',
-	  keyPairs: {
-		"restAPIKey": "",
-		"javascriptKey": "",
-		"clientKey": "clientkey",
-		"windowsKey": "",
-		"masterKey": ""
-	  },
-	  serverURL: 'https://desolate-bayou-57447.herokuapp.com/parse',
-	  websocketTimeout: 10 * 1000,
-	  cacheTimeout: 60 * 600 * 1000,
-	});
+ParseServer.createLiveQueryServer(server);
 	
 
 var Parse = require('parse/node');
