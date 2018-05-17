@@ -34,8 +34,8 @@ var api = new ParseServer({
 const http = require('http');
 const server = http.createServer(app);
 // Used for bidirectional communication using Socket api
-const socketIO = require('socket.io');
-const io = socketIO(server);
+//const socketIO = require('socket.io');
+//const io = socketIO(server);
 
 var ChatLine = require('./models/ChatLine');
 
@@ -125,20 +125,22 @@ ParseServer.createLiveQueryServer(server,
 	  websocketTimeout: 10 * 1000,
 	  cacheTimeout: 60 * 600 * 1000,
 	});
+	
 // Allows io to determine when a user has connected to the server.  client sends to data
-io.on('connection',(socket) => {
+/*io.on('connection',(socket) => {
 	console.log('user connected');
 	
 	socket.on('new-message',(message) => {
 		console.log(message);
 		/*	broadcasts to all users except the sender	*/
-		socket.broadcast.emit('updateChat', message);
+/*		socket.broadcast.emit('updateChat', message);
 	});
 	socket.on('disconnect', function() {
 		console.log(socket.id);
 	});
 
-});	
+});	*/
+
 var Parse = require('parse/node');
 Parse.initialize("12345");
 Parse.serverURL = 'https://desolate-bayou-57447.herokuapp.com/parse';

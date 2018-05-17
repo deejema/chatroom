@@ -20,7 +20,7 @@ export class ChatWindowComponent implements OnInit {
 	ngOnInit() {
 		this.getLog();
 		this.getUsername();
-		this.initSocketConnection();
+		//this.initSocketConnection();
 	}
 	initSocketConnection() : void {
 		this.chatService.initSocket();

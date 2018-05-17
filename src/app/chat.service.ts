@@ -104,7 +104,7 @@ export class ChatService {
 			.pipe(
 				//tap((chatlog:ChatLine) => this.log(`Adding ${name}: ${message}`)),
 				tap((chatlog:ChatLine) => {
-					this.socket.emit('new-message',`${name}: ${message}`);
+					//this.socket.emit('new-message',`${name}: ${message}`);
 					this.log(`Added ${name}: ${message}`);
 				}),
 				catchError(this.handleError('addMessage'))
