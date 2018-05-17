@@ -144,3 +144,23 @@ Parse.initialize("12345");
 Parse.serverURL = 'https://desolate-bayou-57447.herokuapp.com/parse';
 
 var obj = new Parse.Object('Chat');
+var query = new Parse.Query('Chat');
+var subscription = query.subscribe();
+
+subscription.on('open', function() {
+	app.get('/getchat', function(req, res) {
+		/*Parse.Cloud.run('getLog')
+		.then(function(chatline) {
+			res.json(chatline);
+		});
+		*/
+		ChatLine.find(function(err, chatline) {
+			if(err) {
+				console.log(err);
+			}
+			else {
+				res.json(chatline);
+			}
+		});
+	});
+}
