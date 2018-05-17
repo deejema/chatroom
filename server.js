@@ -24,15 +24,12 @@ var api = new ParseServer({
   appId: process.env.APP_ID || '12345',
   masterKey: process.env.MASTER_KEY || 'masterkey', //Add your master key here. Keep it secret!
   serverURL: process.env.SERVER_URL || 'https://desolate-bayou-57447.herokuapp.com/parse',  // Don't forget to change to https if needed
-  clientKey: 'clientkey',
   liveQuery: {
-    classNames: ["Posts", "Comments"] // List of classes to support for query subscriptions
+    classNames: ["chat"] // List of classes to support for query subscriptions
   }
 });
 
-var Parse = require('parse/node');
-Parse.initialize("12345");
-Parse.serverURL = 'https://desolate-bayou-57447.herokuapp.com/parse';
+
 //----------------------------------------------------
 const http = require('http');
 const server = http.createServer(app);
@@ -108,20 +105,7 @@ app.post('/add', function(req, res) {
     });
 });
 
-// Allows io to determine when a user has connected to the server.  client sends to data
-io.on('connection',(socket) => {
-	console.log('user connected');
-	
-	socket.on('new-message',(message) => {
-		console.log(message);
-		/*	broadcasts to all users except the sender	*/
-		socket.broadcast.emit('updateChat', message);
-	});
-	socket.on('disconnect', function() {
-		console.log(socket.id);
-	});
 
-});
 app.listen(port, () => {
 	console.log('Listening on port ' + port);
 });
@@ -141,3 +125,22 @@ ParseServer.createLiveQueryServer(server,
 	  websocketTimeout: 10 * 1000,
 	  cacheTimeout: 60 * 600 * 1000,
 	});
+// Allows io to determine when a user has connected to the server.  client sends to data
+io.on('connection',(socket) => {
+	console.log('user connected');
+	
+	socket.on('new-message',(message) => {
+		console.log(message);
+		/*	broadcasts to all users except the sender	*/
+		socket.broadcast.emit('updateChat', message);
+	});
+	socket.on('disconnect', function() {
+		console.log(socket.id);
+	});
+
+});	
+var Parse = require('parse/node');
+Parse.initialize("12345");
+Parse.serverURL = 'https://desolate-bayou-57447.herokuapp.com/parse';
+
+var obj = new Parse.Object('Chat');
