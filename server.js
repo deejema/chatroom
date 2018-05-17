@@ -41,6 +41,7 @@ Parse.serverURL = 'https://desolate-bayou-57447.herokuapp.com/parse';
 // Used for bidirectional communication using Socket api
 const socketIO = require('socket.io');
 const io = socketIO(server);
+const io = socketIO(api);
 
 var ChatLine = require('./models/ChatLine');
 
@@ -58,6 +59,9 @@ mongoose.connect('mongodb://heroku_50185dzv:mfdmdshaa6cujscrmlh52np8il@ds119930.
 // Parsers
 app.use(bodyParser.json());
 app.use(cors());
+
+// Serve the parse API at /parse URL prefix
+app.use('/parse',api);
 
 // Define the port number
 //33333333---------------------------------------------------------
@@ -88,6 +92,7 @@ app.get('/getchat', function(req, res) {
 		res.json(chatline);
 	});
 	*/
+	console.log('getchat');
 	ChatLine.find(function(err, chatline) {
 		if(err) {
 			console.log(err);
@@ -133,4 +138,4 @@ server.listen(port, () => {
 	console.log('Listening on port ' + port);
 });
 */
-ParseServer.createLiveQueryServer(server);
+//ParseServer.createLiveQueryServer(server);
