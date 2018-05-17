@@ -32,7 +32,7 @@ var api = new ParseServer({
 
 var Parse = require('parse/node');
 Parse.initialize("chatapp");
-
+Parse.serverURL = 'https://desolate-bayou-57447.herokuapp.com/parse'
 //----------------------------------------------------
 const http = require('http');
 const server = http.createServer(app);
