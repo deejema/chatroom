@@ -40,7 +40,7 @@ Parse.serverURL = 'https://desolate-bayou-57447.herokuapp.com/parse';
 
 // Used for bidirectional communication using Socket api
 const socketIO = require('socket.io');
-const io = socketIO(server);
+//const io = socketIO(server);
 const io = socketIO(api);
 
 var ChatLine = require('./models/ChatLine');
