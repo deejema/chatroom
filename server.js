@@ -19,7 +19,7 @@ const api = require('./server/routes/api');
 // Set up parse server
 var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 var api = new ParseServer({
-  databaseURI: databaseUri || 'mongodb://localhost:27017/chat',
+  databaseURI: databaseUri || 'mongodb://heroku_50185dzv:mfdmdshaa6cujscrmlh52np8il@ds119930.mlab.com:19930/heroku_50185dzv',
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
   appId: process.env.APP_ID || 'chatapp',
   masterKey: process.env.MASTER_KEY || 'masterkey', //Add your master key here. Keep it secret!
