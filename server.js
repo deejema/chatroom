@@ -94,6 +94,7 @@ app.get('/getchat', function(req, res) {
 });
 
 // Send a post request to add messages to server
+/*
 app.post('/add', function(req, res) {
 	var chatLine = new ChatLine(req.body);
    chatLine.save()
@@ -104,7 +105,7 @@ app.post('/add', function(req, res) {
     res.status(400).send("unable to save to database");
     });
 });
-
+*/
 
 app.listen(port, () => {
 	console.log('Listening on port ' + port);
@@ -152,6 +153,18 @@ chat.set("username", "TestFromParse");
 chat.set("content","I am from parse test");
 chat.save();
 */
+app.post('/add', function(req, res) {
+	let chat = new Chat();
+	chat.set("username", "TestFromParse");
+	chat.set("content","I am from parse test");
+	chat.save()
+		.then(item => {
+		res.status(200).json({'ChatLine': 'Chat added successfully'});
+		})
+		.catch(err => {
+		res.status(400).send("unable to save to database");
+	});
+});
 
 var query = new Parse.Query(Chat);
 query.limit(1000);
@@ -161,6 +174,6 @@ query.find().then(
 		console.log("got shit: " + results.length);
 	},
 	function(error) {
-		console.log("Error: " + error.code + " " + error.message);
+		console.log("Errdfvsdfsdfor: code " + error.code + ", " + error.message);
 	}
 );
