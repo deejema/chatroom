@@ -37,6 +37,21 @@ const server = http.createServer(app);
 //const socketIO = require('socket.io');
 //const io = socketIO(server);
 
+// Allows io to determine when a user has connected to the server.  client sends to data
+/*io.on('connection',(socket) => {
+	console.log('user connected');
+	
+	socket.on('new-message',(message) => {
+		console.log(message);
+		/*	broadcasts to all users except the sender	*/
+/*		socket.broadcast.emit('updateChat', message);
+	});
+	socket.on('disconnect', function() {
+		console.log(socket.id);
+	});
+
+});	*/
+
 var ChatLine = require('./models/ChatLine');
 
 //22222222--------------------------------------------------------
@@ -109,7 +124,7 @@ app.post('/add', function(req, res) {
 app.listen(port, () => {
 	console.log('Listening on port ' + port);
 });
-
+// ------------------------------------------------------------
 ParseServer.createLiveQueryServer(server, 
 	{
 	  appId: '12345',
@@ -126,20 +141,6 @@ ParseServer.createLiveQueryServer(server,
 	  cacheTimeout: 60 * 600 * 1000,
 	});
 	
-// Allows io to determine when a user has connected to the server.  client sends to data
-/*io.on('connection',(socket) => {
-	console.log('user connected');
-	
-	socket.on('new-message',(message) => {
-		console.log(message);
-		/*	broadcasts to all users except the sender	*/
-/*		socket.broadcast.emit('updateChat', message);
-	});
-	socket.on('disconnect', function() {
-		console.log(socket.id);
-	});
-
-});	*/
 
 var Parse = require('parse/node');
 Parse.initialize("12345");
@@ -147,13 +148,17 @@ Parse.serverURL = 'https://desolate-bayou-57447.herokuapp.com/parse';
 
 // example - adds to chat db
 var Chat = Parse.Object.extend("chat");
+// Adds to mongo db
 /*let chat = new Chat();
 chat.set("username", "TestFromParse");
 chat.set("content","I am from parse test");
 chat.save();
 */
 
+// Expected: Get the number of chat messages from server
+// Get an error: Code 1: bad key in untransform
 var query = new Parse.Query(Chat);
+/*
 query.limit(1000);
 query.notEqualTo("username", "9vcxla23naoaklafhzl");
 query.find().then(
@@ -164,3 +169,5 @@ query.find().then(
 		console.log("Errdfvsdfsdfor: code " + error.code + ", " + error.message);
 	}
 );
+*/
+let subscription = query.subscribe();
