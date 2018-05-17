@@ -163,4 +163,4 @@ subscription.on('open', function() {
 			}
 		});
 	});
-}
+});
