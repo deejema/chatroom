@@ -31,8 +31,8 @@ var api = new ParseServer({
 });
 
 var Parse = require('parse/node');
-//Parse.initialize("12345");
-//Parse.serverURL = 'https://desolate-bayou-57447.herokuapp.com/parse';
+Parse.initialize("12345");
+Parse.serverURL = 'https://desolate-bayou-57447.herokuapp.com/parse';
 //----------------------------------------------------
 const http = require('http');
 const server = http.createServer(app);
