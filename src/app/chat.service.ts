@@ -25,8 +25,8 @@ import * as io from 'socket.io-client';
 export class ChatService {
 	
 	cLog: ChatLine[]=[];
-	//private uri = 'https://desolate-bayou-57447.herokuapp.com/parse/';
-	private uri = 'https://desolate-bayou-57447.herokuapp.com/';
+	private uri = 'https://desolate-bayou-57447.herokuapp.com/parse/';
+	//private uri = 'https://desolate-bayou-57447.herokuapp.com/';
 	//private uri = 'http://localhost:3000/';
 	//cLog: string[]=[];  // string ver
 	private socket;
@@ -34,10 +34,11 @@ export class ChatService {
 	constructor(private messageService: MessageService,
 				private http: HttpClient) { 
 		
-		
+		var Parse = require('parse');
 		//Parse.initialize("chatapp", "", "masterkey");
-		//let parse = require('parse');
-		//parse.serverURL = 'https://desolate-bayou-57447.herokuapp.com/parse';
+		
+		Parse.initialize("chatapp");
+		Parse.serverURL = 'https://desolate-bayou-57447.herokuapp.com/parse';
 		
 	}
 	initSocket(): void {
