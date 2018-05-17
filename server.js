@@ -145,15 +145,20 @@ var Parse = require('parse/node');
 Parse.initialize("12345");
 Parse.serverURL = 'https://desolate-bayou-57447.herokuapp.com/parse';
 
-// example - sets to end of chat
+// example - adds to chat db
 var Chat = Parse.Object.extend("chat");
 /*let chat = new Chat();
 chat.set("username", "TestFromParse");
 chat.set("content","I am from parse test");
 chat.save();
 */
-Parse.Cloud.run('retrieveAllObjects', {
-    object_type: "Chat", // REQUIRED - string: name of your Parse class
-    }).then(function(objects) {
-		console.log(objects);
-	});
+
+var query = new Parse.Query(Chat);
+query.find({
+	success: function(results) {
+		console.log("got shit: " + results.length);
+	}
+	error: function(error) {
+		console.log("Error: " + error.code + " " + error.message);
+	}
+});
