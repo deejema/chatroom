@@ -144,9 +144,9 @@ chat.save();
 // Expected: Get the number of chat messages from server
 // Get an error: Code 1: bad key in untransform
 var query = new Parse.Query(Chat);
+query.notEqualTo("username", "9vcxla23naoaklafhzl");
 /*
 query.limit(1000);
-query.notEqualTo("username", "9vcxla23naoaklafhzl");
 query.find().then(
 	function(results) {
 		console.log("got shit: " + results.length);
