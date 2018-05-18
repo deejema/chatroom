@@ -1,6 +1,6 @@
 const express = require('express');
-const app = express();
-
+const app = express.Router();
+// express.Router();
 const path = require('path');
 const bodyParser = require('body-parser');
 // Cross-Origin resource sharing
@@ -145,17 +145,19 @@ chat.save();
 // Get an error: Code 1: bad key in untransform
 var query = new Parse.Query(Chat);
 query.notEqualTo("username", "9vcxla23naoaklafhzl");
-/*
+
 query.limit(1000);
 query.find().then(
 	function(results) {
 		console.log("got shit: " + results.length);
+	
 	},
 	function(error) {
 		console.log("Errdfvsdfsdfor: code " + error.code + ", " + error.message);
 	}
 );
-*/
+
+
 /*let subscription = query.subscribe();
 subscription.on('open', () => {
  console.log('subscription opened');
