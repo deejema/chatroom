@@ -125,7 +125,7 @@ app.listen(port, () => {
 	console.log('Listening on port ' + port);
 });
 // ------------------------------------------------------------
-ParseServer.createLiveQueryServer(server);
+//ParseServer.createLiveQueryServer(server);
 	
 
 var Parse = require('parse/node');
