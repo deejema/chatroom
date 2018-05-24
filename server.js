@@ -123,7 +123,7 @@ router.route('/add').post(function(req, res) {
     .catch(err => {
     res.status(400).send("unable to save to database");
     });*/
-	console.log(res.json);
+	console.log("vczxn,vcxznmv,czx,");
 });
 
 
