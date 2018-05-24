@@ -24,6 +24,7 @@ var api = new ParseServer({
   appId: process.env.APP_ID || '12345',
   masterKey: process.env.MASTER_KEY || 'masterkey', //Add your master key here. Keep it secret!
   serverURL: process.env.SERVER_URL || 'https://desolate-bayou-57447.herokuapp.com/parse',  // Don't forget to change to https if needed
+  javascriptKey: 'abs',
   liveQuery: {
     classNames: ["chat"] // List of classes to support for query subscriptions
   }
@@ -94,9 +95,6 @@ app.use(mountPath, api);
 
 // Get request to receive all messages from server
 
-router.route('/').get( function(req, res) {
-	res.status(200).send('this is a test');
-});
 router.route('/getchat').get(function(req, res) {
 //app.get('/getchat', function(req, res) {
 	/*Parse.Cloud.run('getLog')
@@ -140,7 +138,7 @@ app.listen(port, () => {
 	
 
 var Parse = require('parse/node');
-Parse.initialize("12345");
+Parse.initialize('12345', 'abs','masterkey');
 Parse.serverURL = 'https://desolate-bayou-57447.herokuapp.com/parse';
 
 // example - adds to chat db
