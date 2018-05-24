@@ -38,7 +38,7 @@ export class ChatService {
 		var Parse = require('parse');
 		//Parse.initialize("chatapp", "", "masterkey");
 		
-		Parse.initialize("chatapp");
+		Parse.initialize("12345");
 		Parse.serverURL = 'https://desolate-bayou-57447.herokuapp.com/parse';
 		
 	}
