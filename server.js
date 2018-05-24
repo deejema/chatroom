@@ -1,6 +1,6 @@
 const express = require('express');
-//const app = express();
-const app = express.Router();
+const app = express();
+const router = express.Router();
 const path = require('path');
 const bodyParser = require('body-parser');
 // Cross-Origin resource sharing
@@ -68,6 +68,7 @@ mongoose.connect('mongodb://heroku_50185dzv:mfdmdshaa6cujscrmlh52np8il@ds119930.
 // Parsers
 app.use(bodyParser.json());
 app.use(cors());
+app.use(router);
 
 // Define the port number
 //33333333---------------------------------------------------------
@@ -92,7 +93,7 @@ app.use(mountPath, api);
 //---------------------------------------------------------
 
 // Get request to receive all messages from server
-app.route('/getchat').get(function(req, res) {
+router.route('/getchat').get(function(req, res) {
 //app.get('/getchat', function(req, res) {
 	/*Parse.Cloud.run('getLog')
 	.then(function(chatline) {
@@ -112,7 +113,7 @@ app.route('/getchat').get(function(req, res) {
 });
 
 // Send a post request to add messages to server
-app.route('/add').post(function(req, res) {
+router.route('/add').post(function(req, res) {
 //app.post('/add', function(req, res) {
 	var chatLine = new ChatLine(req.body);
    chatLine.save()
