@@ -98,6 +98,7 @@ app.get('/getchat', function(req, res) {
 		res.json(chatline);
 	});
 	*/
+	console.log("lalalalasla");
 	ChatLine.find(function(err, chatline) {
 		if(err) {
 			console.log(err);
