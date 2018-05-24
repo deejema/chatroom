@@ -115,14 +115,15 @@ router.route('/getchat').get(function(req, res) {
 // Send a post request to add messages to server
 router.route('/add').post(function(req, res) {
 //app.post('/add', function(req, res) {
-	var chatLine = new ChatLine(req.body);
+	/*var chatLine = new ChatLine(req.body);
    chatLine.save()
     .then(item => {
     res.status(200).json({'ChatLine': 'Chat added successfully'});
     })
     .catch(err => {
     res.status(400).send("unable to save to database");
-    });
+    });*/
+	console.log(res.json);
 });
 
 
