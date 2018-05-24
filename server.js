@@ -92,6 +92,18 @@ app.use(mountPath, api);
 
 //---------------------------------------------------------
 
+
+app.listen(port, () => {
+	console.log('Listening on port ' + port);
+});
+// ------------------------------------------------------------
+// Enables the Live Query real-time server
+//ParseServer.createLiveQueryServer(server);
+	
+
+var Parse = require('parse/node');
+Parse.initialize("12345");
+Parse.serverURL = 'https://desolate-bayou-57447.herokuapp.com/parse';
 // Get request to receive all messages from server
 router.route('/getchat').get(function(req, res) {
 //app.get('/getchat', function(req, res) {
@@ -127,19 +139,8 @@ router.route('/add').post(function(req, res) {
 });
 
 
-app.listen(port, () => {
-	console.log('Listening on port ' + port);
-});
-// ------------------------------------------------------------
-//ParseServer.createLiveQueryServer(server);
-	
-
-var Parse = require('parse/node');
-Parse.initialize("12345");
-Parse.serverURL = 'https://desolate-bayou-57447.herokuapp.com/parse';
-
 // example - adds to chat db
-var Chat = Parse.Object.extend("chat");
+//var Chat = Parse.Object.extend("chat");
 // Adds to mongo db
 /*let chat = new Chat();
 chat.set("username", "TestFromParse");
