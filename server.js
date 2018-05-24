@@ -93,6 +93,10 @@ app.use(mountPath, api);
 //---------------------------------------------------------
 
 // Get request to receive all messages from server
+
+router.rout('/').get( function(req, res) {
+	res.status(200).send('this is a test');
+});
 router.route('/getchat').get(function(req, res) {
 //app.get('/getchat', function(req, res) {
 	/*Parse.Cloud.run('getLog')
