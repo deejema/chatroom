@@ -1,6 +1,6 @@
 const express = require('express');
-const app = express();
-// express.Router();
+//const app = express();
+const app = express.Router();
 const path = require('path');
 const bodyParser = require('body-parser');
 // Cross-Origin resource sharing
@@ -92,7 +92,8 @@ app.use(mountPath, api);
 //---------------------------------------------------------
 
 // Get request to receive all messages from server
-app.get('/getchat', function(req, res) {
+app.route('/getchat').get(function(req, res) {
+//app.get('/getchat', function(req, res) {
 	/*Parse.Cloud.run('getLog')
 	.then(function(chatline) {
 		res.json(chatline);
@@ -111,7 +112,8 @@ app.get('/getchat', function(req, res) {
 });
 
 // Send a post request to add messages to server
-app.post('/add', function(req, res) {
+app.route('/add').post(function(req, res) {
+//app.post('/add', function(req, res) {
 	var chatLine = new ChatLine(req.body);
    chatLine.save()
     .then(item => {
