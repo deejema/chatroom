@@ -99,7 +99,7 @@ app.get('/getchat', function(req, res) {
 	});
 	*/
 	console.log("lalalalasla");
-	ChatLine.find(function(err, chatline) {
+	/*ChatLine.find(function(err, chatline) {
 		if(err) {
 			console.log(err);
 		}
@@ -107,6 +107,7 @@ app.get('/getchat', function(req, res) {
 			res.json(chatline);
 		}
 	});
+	*/
 });
 
 // Send a post request to add messages to server
