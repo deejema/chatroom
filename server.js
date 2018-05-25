@@ -104,12 +104,12 @@ router.get('/getchat', function(req, res) {
 			res.data = res;
 			res.json(res);
 		}
-	});*/
+	});
 	/*Parse.Cloud.run('getLog')
 	.then(function(chatline) {
 		res.json(chatline);
 	});
-	
+	*/
 	console.log("lalalalasla");
 	/*ChatLine.find(function(err, chatline) {
 		if(err) {
@@ -146,7 +146,7 @@ app.listen(port, () => {
 	
 
 var Parse = require('parse/node');
-Parse.initialize('12345');
+Parse.initialize('12345', 'abs', 'masterkey');
 Parse.serverURL = 'https://desolate-bayou-57447.herokuapp.com/parse';
 
 // example - adds to chat db
