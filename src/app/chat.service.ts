@@ -78,7 +78,7 @@ export class ChatService {
 		});
 		*/
 		
-		return this.http.get<ChatLine[]>(`${this.uri}/classes/getchat`)
+		return this.http.get<ChatLine[]>(`${this.uri}classes/getchat`)
 			.pipe(
 				tap(chatlog=>this.log('Getting chat')),
 				catchError(this.handleError('getChatFromServer',[])));
