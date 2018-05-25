@@ -97,7 +97,7 @@ app.use(mountPath, api);
 
 //router.route('/getchat').get(function(req, res) {
 router.get('/getchat', function(req, res) {
-	var Chat = Parse.Object.extend("chat");
+	var Chat = new Parse.Query("chat");
 	
 	Chat.find( {
 		success: function(res) {
