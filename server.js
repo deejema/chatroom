@@ -95,8 +95,8 @@ app.use(mountPath, api);
 
 // Get request to receive all messages from server
 
-router.route('/getchat').get(function(req, res) {
-//app.get('/getchat', function(req, res) {
+//router.route('/getchat').get(function(req, res) {
+router.get('/getchat', function(req, res) {
 	/*Parse.Cloud.run('getLog')
 	.then(function(chatline) {
 		res.json(chatline);
@@ -115,8 +115,8 @@ router.route('/getchat').get(function(req, res) {
 });
 
 // Send a post request to add messages to server
-router.route('/add').post(function(req, res) {
-//app.post('/add', function(req, res) {
+//router.route('/add').post(function(req, res) {
+router.post('/add', function(req, res) {
 	/*var chatLine = new ChatLine(req.body);
    chatLine.save()
     .then(item => {
