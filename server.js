@@ -97,6 +97,14 @@ app.use(mountPath, api);
 
 //router.route('/getchat').get(function(req, res) {
 router.get('/getchat', function(req, res) {
+	var Chat = Parse.Object.extend("chat");
+	
+	Chat.find( {
+		success: function(res) {
+			res.data = res;
+			res.json(res);
+		}
+	});
 	/*Parse.Cloud.run('getLog')
 	.then(function(chatline) {
 		res.json(chatline);
@@ -138,7 +146,7 @@ app.listen(port, () => {
 	
 
 var Parse = require('parse/node');
-Parse.initialize('12345', 'abs','masterkey');
+Parse.initialize('12345');
 Parse.serverURL = 'https://desolate-bayou-57447.herokuapp.com/parse';
 
 // example - adds to chat db
