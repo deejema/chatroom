@@ -104,12 +104,12 @@ router.get('/getchat', function(req, res) {
 			res.data = res;
 			res.json(res);
 		}
-	});
+	});*/
 	/*Parse.Cloud.run('getLog')
 	.then(function(chatline) {
 		res.json(chatline);
 	});
-	*/
+	
 	console.log("lalalalasla");
 	/*ChatLine.find(function(err, chatline) {
 		if(err) {
