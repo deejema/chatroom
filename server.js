@@ -67,6 +67,7 @@ mongoose.connect('mongodb://heroku_50185dzv:mfdmdshaa6cujscrmlh52np8il@ds119930.
 //--------------------------------------------------------
 
 // Parsers
+app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 app.use(cors());
 app.use(router);
