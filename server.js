@@ -160,7 +160,7 @@ chat.set("content","I am from parse test");
 chat.save();
 */
 
-/*
+
 // Expected: Get the number of chat messages from server
 // Get an error: Code 1: bad key in untransform
 var query = new Parse.Query(Chat);
@@ -176,7 +176,7 @@ query.find().then(
 		console.log("Errdfvsdfsdfor: code " + error.code + ", " + error.message);
 	}
 );
-*/
+
 
 /*let subscription = query.subscribe();
 subscription.on('open', () => {

@@ -77,7 +77,7 @@ export class ChatService {
 			return res;
 		});
 		*/
-		
+
 		return this.http.get<ChatLine[]>(`${this.uri}classes/chat`)
 			.pipe(
 				tap(chatlog=>this.log('Getting chat')),
