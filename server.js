@@ -167,7 +167,10 @@ var query = new Parse.Query("chat");
 query.find( {
 		success: function(res) {
 			res.data = res;
-			console.log(res.json(res));
+			console.log("test");
+		},
+		error: function(err) {
+			console.log("error");
 		}
 	});
 
