@@ -98,7 +98,7 @@ app.use(mountPath, api);
 // Get request to receive all messages from server
 
 //router.route('/getchat').get(function(req, res) {
-router.get('/getchat', function(req, res) {
+router.get('/chat', function(req, res) {
 	var Chat = new Parse.Query("chat");
 	
 	Chat.find( {
