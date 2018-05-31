@@ -154,8 +154,8 @@ Parse.serverURL = 'https://desolate-bayou-57447.herokuapp.com/parse';
 // example - adds to chat db
 //var Chat = Parse.Object.extend("chat");
 // Adds to mongo db
-/*let chat = new Chat();
-chat.set("username", "TestFromParse");
+let chat = new Chat();
+/*chat.set("username", "TestFromParse");
 chat.set("content","I am from parse test");
 chat.save();
 */
