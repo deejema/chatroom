@@ -154,7 +154,7 @@ Parse.serverURL = 'https://desolate-bayou-57447.herokuapp.com/parse';
 // example - adds to chat db
 //var Chat = Parse.Object.extend("chat");
 // Adds to mongo db
-let chat = new Chat();
+//let chat = new Chat();
 /*chat.set("username", "TestFromParse");
 chat.set("content","I am from parse test");
 chat.save();
@@ -163,8 +163,8 @@ chat.save();
 
 // Expected: Get the number of chat messages from server
 // Get an error: Code 1: bad key in untransform
-var query = new Parse.Query(Chat);
-Chat.find( {
+var query = new Parse.Query("chat");
+query.find( {
 		success: function(res) {
 			res.data = res;
 			console.log(res.json(res));
