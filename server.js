@@ -23,7 +23,7 @@ var api = new ParseServer({
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
   appId: process.env.APP_ID || '12345',
   masterKey: process.env.MASTER_KEY || 'masterkey', //Add your master key here. Keep it secret!
-  serverURL: process.env.SERVER_URL || 'https://desolate-bayou-57447.herokuapp.com/parse/chat',  // Don't forget to change to https if needed
+  serverURL: process.env.SERVER_URL || 'https://desolate-bayou-57447.herokuapp.com/parse/classes/chat',  // Don't forget to change to https if needed
   javascriptKey: 'abs',
   liveQuery: {
     classNames: ["chat"] // List of classes to support for query subscriptions
