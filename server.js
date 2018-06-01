@@ -9,7 +9,8 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 
 // Parse server
-var ParseServer = require('parse-server').ParseServer;
+const ParseServer = require('parse-server').ParseServer;
+
 /*
 // API file for interacting with MongoDB
 const api = require('./server/routes/api');
@@ -18,6 +19,7 @@ const api = require('./server/routes/api');
 //111111-------------------------------------------------
 // Set up parse server
 var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
+
 var api = new ParseServer({
   databaseURI: databaseUri || 'mongodb://heroku_50185dzv:mfdmdshaa6cujscrmlh52np8il@ds119930.mlab.com:19930/heroku_50185dzv',
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
@@ -31,6 +33,9 @@ var api = new ParseServer({
 });
 
 //curl -X GET -H "X-Parse-Application-Id: 12345" -H "X-Parse-Master-Key: masterkey" https://desolate-bayou-57447.herokuapp.com/parse/classes/chat
+var Parse = require('parse/node');
+Parse.initialize('12345', 'abs', 'masterkey');
+Parse.serverURL = 'https://desolate-bayou-57447.herokuapp.com/parse';
 
 //----------------------------------------------------
 const http = require('http');
@@ -96,10 +101,13 @@ app.use(mountPath, api);
 //---------------------------------------------------------
 
 // Get request to receive all messages from server
+var chat = Parse.Object.extend("chat");
 
 //router.route('/getchat').get(function(req, res) {
+	
+	
 router.get('/chat', function(req, res) {
-	var Chat = new Parse.Query("chat");
+	var Chat = new Parse.Query(chat);
 	
 	Chat.find( {
 		success: function(res) {
@@ -147,9 +155,7 @@ app.listen(port, () => {
 //ParseServer.createLiveQueryServer(server);
 	
 
-var Parse = require('parse/node');
-Parse.initialize('12345', 'abs', 'masterkey');
-Parse.serverURL = 'https://desolate-bayou-57447.herokuapp.com/parse';
+
 
 // example - adds to chat db
 //var Chat = Parse.Object.extend("chat");
@@ -172,7 +178,7 @@ query.find( {
 		error: function(err) {
 			console.log("error");
 		}
-	});
+});
 
 
 /*let subscription = query.subscribe();
