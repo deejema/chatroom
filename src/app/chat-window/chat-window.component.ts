@@ -33,7 +33,7 @@ export class ChatWindowComponent implements OnInit {
 	
 	/*	Gets the entire chat from the server.  Should only be called once	*/
 	getLog(): void {
-		this.chatService.test().subscribe(chatLog => {
+		this.chatService.getChatFromServer().subscribe(chatLog => {
 			this.chatLog = chatLog;
 			console.log(chatLog);
 		});

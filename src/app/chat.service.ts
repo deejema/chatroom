@@ -8,7 +8,6 @@ import { of } from 'rxjs/observable/of';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import * as Parse from 'parse';
-import 'rxjs/add/operator/map';
 const httpOptions = {
 	headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -69,7 +68,7 @@ export class ChatService {
 	}
 	
 	/* Get chat log from server */
-	getChatFromServer() : Observable<ChatLine[]> {
+	getChatFromServer() : Observable<any> {
 		/*
 			this.log('alagbfgfhdfghgfdla');
 		Parse.Cloud.run('getLog')
@@ -84,10 +83,8 @@ export class ChatService {
 				tap(chatlog=>this.log('Getting chat')),
 				catchError(this.handleError('getChatFromServer',[])));
 	}
-	test(): Observable<any>  {
-		return this.http.get<ChatLine[]>(`${this.uri}classes/chat`)
-		.map( res => console.log("dada"));
-	}
+
+	
 	/* Add a message to the chat log */
 	/* PROBLEM: Return type Observable<any> allows build to work, but it does not properly call the data	
 		back;  The data sent to the server does not properly get called as a ChatLine object and
