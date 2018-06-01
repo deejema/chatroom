@@ -5,11 +5,12 @@ import { MessageService } from './message.service';
 // Used for Http Requests
 import { Observable } from 'rxjs/Observable'; // Class from RxJS library
 import { of } from 'rxjs/observable/of';
-import { HttpClient, HttpHeaders } from '@angular/http';
+import { Http, Headers } from '@angular/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import * as Parse from 'parse';
+import 'rxjs/add/operator/map';
 const httpOptions = {
-	headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+	headers: new Headers({ 'Content-Type': 'application/json' })
 };
 
 // Used for bidirectional communication - used for updating client when server is updated
@@ -22,7 +23,7 @@ import * as io from 'socket.io-client';
 	and adding messages to the server
 */
 @Injectable()
-@Inject(HttpClient)
+//@Inject(HttpClient)
 export class ChatService {
 	
 	cLog: ChatLine[]=[];
@@ -32,11 +33,11 @@ export class ChatService {
 	//cLog: string[]=[];  // string ver
 	private socket;
 	username: string;
-	headers: HttpHeaders = new HttpHeaders();
+	headers: Headers = new Headers();
 	
 	
 	constructor(private messageService: MessageService,
-				private http: HttpClient) { 
+				private http: Http) { 
 		
 		this.headers.append('X-Parse-Application-Id', '12345');
 		this.headers.append('X-Parse-Master-Key','masterkey');
@@ -90,7 +91,7 @@ export class ChatService {
 				catchError(this.handleError('getChatFromServer',[])));
 				*/
 		return this.http.get("/server/chat")
-		.map(res => console.log("success for chat");
+		.map(res => console.log("success for chat"));
 	}
 
 	
@@ -110,7 +111,8 @@ export class ChatService {
 	*/
 	addMessage(name: string, message: string): Observable<any> {
 		let insertToChat = { username: name, content: message};
-		return this.http.post<ChatLine>(`${this.uri}add`, insertToChat, httpOptions)
+		return null;
+		/*return this.http.post<ChatLine>(`${this.uri}add`, insertToChat, httpOptions)
 			.pipe(
 				//tap((chatlog:ChatLine) => this.log(`Adding ${name}: ${message}`)),
 				tap((chatlog:ChatLine) => {
@@ -118,7 +120,7 @@ export class ChatService {
 					this.log(`Added ${name}: ${message}`);
 				}),
 				catchError(this.handleError('addMessage'))
-			);
+			);*/
 			//.subscribe(res => this.log(`Added "${name}: ${message} to chatlog"`));
 		//this.cLog.push({ username: name, content: message}); // pushes ChatLine(username, content)
 	}
