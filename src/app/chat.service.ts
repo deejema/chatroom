@@ -111,9 +111,10 @@ export class ChatService {
 	*/
 	addMessage(name: string, message: string): Observable<any> {
 		let insertToChat = { username: name, content: message};
-		return null;
-		/*return this.http.post<ChatLine>(`${this.uri}add`, insertToChat, httpOptions)
-			.pipe(
+
+		return this.http.post("/server/chat", JSON.stringify(insertToChat), httpOptions)
+		.map(res => console.log("success for add"));
+			/*.pipe(
 				//tap((chatlog:ChatLine) => this.log(`Adding ${name}: ${message}`)),
 				tap((chatlog:ChatLine) => {
 					//this.socket.emit('new-message',`${name}: ${message}`);
