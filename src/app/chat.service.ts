@@ -5,7 +5,7 @@ import { MessageService } from './message.service';
 // Used for Http Requests
 import { Observable } from 'rxjs/Observable'; // Class from RxJS library
 import { of } from 'rxjs/observable/of';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import * as Parse from 'parse';
 const httpOptions = {
@@ -33,6 +33,7 @@ export class ChatService {
 	private socket;
 	username: string;
 	headers: HttpHeaders = new HttpHeaders();
+	
 	
 	constructor(private messageService: MessageService,
 				private http: HttpClient) { 
@@ -83,10 +84,13 @@ export class ChatService {
 		});
 		*/
 		
-		return this.http.get<ChatLine[]>(`${this.uri}classes/chat`, { headers: this.headers })
+		/*return this.http.get<ChatLine[]>(`${this.uri}classes/chat`, { headers: this.headers })
 			.pipe(
 				tap(chatlog=>this.log('Getting chat')),
 				catchError(this.handleError('getChatFromServer',[])));
+				*/
+		return this.http.get("/server/chat")
+		.map(res => console.log("success for chat");
 	}
 
 	
