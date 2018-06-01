@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { ChatLine } from './chatline';
 import { MessageService } from './message.service';
 
@@ -22,6 +22,7 @@ import * as io from 'socket.io-client';
 	and adding messages to the server
 */
 @Injectable()
+@Inject(HttpClient)
 export class ChatService {
 	
 	cLog: ChatLine[]=[];
@@ -31,9 +32,13 @@ export class ChatService {
 	//cLog: string[]=[];  // string ver
 	private socket;
 	username: string;
+	headers: HttpHeaders = new HttpHeaders();
+	
 	constructor(private messageService: MessageService,
 				private http: HttpClient) { 
 		
+		this.headers.append('X-Parse-Application-Id', '12345');
+		this.headers.append('X-Parse-Master-Key','masterkey');
 		//let query = new Parse.Query('Chat');
 		var Parse = require('parse');
 		//Parse.initialize("chatapp", "", "masterkey");
@@ -78,7 +83,7 @@ export class ChatService {
 		});
 		*/
 		
-		return this.http.get<ChatLine[]>(`${this.uri}classes/chat`)
+		return this.http.get<ChatLine[]>(`${this.uri}classes/chat`, { headers: this.headers })
 			.pipe(
 				tap(chatlog=>this.log('Getting chat')),
 				catchError(this.handleError('getChatFromServer',[])));
