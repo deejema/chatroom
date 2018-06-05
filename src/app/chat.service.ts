@@ -81,7 +81,7 @@ export class ChatService {
 	getChatFromServer() : Observable<any> {
 		let request = new Request({
 			method: "GET",
-			url: `/classes/chat`
+			url: `${this.uri}classes/chat`
 		});
 		return this.http.request(request)
 		.map(res => console.log("success for chat"))
