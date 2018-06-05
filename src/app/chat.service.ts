@@ -84,7 +84,7 @@ export class ChatService {
 		.catch(this.handleError('getChatFromServer',[]));
 	}
 
-	curl -X GET -H "X-Parse-Application-Id: 12345"  -H "X-Parse-Master-Key: masterkey}" -H "Content-Type: application/json" https://desolate-bayou-57447.herokuapp.com/parse/hooks/triggers
+	//curl -X GET -H "X-Parse-Application-Id: 12345"  -H "X-Parse-Master-Key: masterkey}" -H "Content-Type: application/json" https://desolate-bayou-57447.herokuapp.com/parse/hooks/triggers
 	/* Add a message to the chat log */
 	/* PROBLEM: Return type Observable<any> allows build to work, but it does not properly call the data	
 		back;  The data sent to the server does not properly get called as a ChatLine object and
