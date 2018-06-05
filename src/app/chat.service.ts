@@ -5,7 +5,7 @@ import { MessageService } from './message.service';
 // Used for Http Requests
 import { Observable } from 'rxjs/Observable'; // Class from RxJS library
 import { of } from 'rxjs/observable/of';
-import { Http, Headers } from '@angular/http';
+import { Http, Headers, Request } from '@angular/http';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import * as Parse from 'parse';
@@ -47,7 +47,8 @@ export class ChatService {
 		var Parse = require('parse');
 		//Parse.initialize("chatapp", "", "masterkey");
 		
-		Parse.initialize("12345");
+		Parse.initialize("12345", null, "masterkey");
+		Parse.masterKey = "masterkey";
 		Parse.serverURL = 'https://desolate-bayou-57447.herokuapp.com/parse';
 		
 	}
@@ -78,8 +79,11 @@ export class ChatService {
 	
 	/* Get chat log from server */
 	getChatFromServer() : Observable<any> {
-
-		return this.http.get("/classes/chat")
+		let request = new Request({
+			method: "GET",
+			url: `/classes/chat`
+		});
+		return this.http.request(request)
 		.map(res => console.log("success for chat"))
 		.catch(this.handleError('getChatFromServer',[]));
 	}
@@ -90,15 +94,9 @@ export class ChatService {
 		back;  The data sent to the server does not properly get called as a ChatLine object and
 		this.log() does not work.  When the data is subscribed back to the component, it will improperly
 		add the field into the chat log and needs to be refreshed to see the correct chat
-	*/ 
-	/* 	Observable<ChatLine> brings the error:
-			ERROR in src/app/chat.service.ts(41,3): error TS2322: Type 'Observable<{} | ChatLine>' is not assignable to type 'Observable<ChatLine>'.
-				Type '{} | ChatLine' is not assignable to type 'ChatLine'.
-					Type '{}' is not assignable to type 'ChatLine'.
-						Property 'username' is missing in type '{}'.
-						
+	*/ 			
 		
-	*/
+	
 	addMessage(name: string, message: string): Observable<any> {
 		let insertToChat = { username: name, content: message};
 
