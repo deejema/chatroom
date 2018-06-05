@@ -10,6 +10,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import * as Parse from 'parse';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 const httpOptions = {
 	headers: new Headers({ 'Content-Type': 'application/json' })
 };
@@ -92,7 +93,8 @@ export class ChatService {
 				catchError(this.handleError('getChatFromServer',[])));
 				*/
 		return this.http.get("/server/chat")
-		.map(res => console.log("success for chat"));
+		.map(res => console.log("success for chat"))
+		.catch(this.handleError('getChatFromServer',[]));
 	}
 
 	
