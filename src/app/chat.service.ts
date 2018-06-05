@@ -12,8 +12,12 @@ import * as Parse from 'parse';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 const httpOptions = {
-	headers: new Headers({ 'Content-Type': 'application/json' })
+	headers: new HttpHeaders({ 
+		'Content-Type': 'application/json',
+		'X-Parse-Application-Id': "12345",
+		'X-Parse-Master-Key': "masterkey" })
 };
+
 
 // Used for bidirectional communication - used for updating client when server is updated
 import * as io from 'socket.io-client';
@@ -35,17 +39,21 @@ export class ChatService {
 	//cLog: string[]=[];  // string ver
 	private socket;
 	username: string;
-	//headers: Headers = new Headers();
+	private credientalHeaders: HttpHeaders; 
 	
 	
 	constructor(private messageService: MessageService,
-				private http: Http) { 
+				private http: HttpClient) { 
 		
 		//this.headers.append('X-Parse-Application-Id', '12345');
 		//this.headers.append('X-Parse-Master-Key','masterkey');
 		//let query = new Parse.Query('Chat');
 		var Parse = require('parse');
 		//Parse.initialize("chatapp", "", "masterkey");
+		this.credientalHeaders = new HttpHeaders({
+		  'X-Parse-Application-Id': "12345",
+		  'X-Parse-Master-Key': "masterkey"
+		});
 		
 		Parse.initialize("12345", null, "masterkey");
 		Parse.masterKey = "masterkey";
@@ -78,14 +86,16 @@ export class ChatService {
 	}
 	
 	/* Get chat log from server */
-	getChatFromServer() : Observable<any> {
-		let request = new Request({
-			method: "GET",
-			url: `parse/classes/chat`
-		});
-		return this.http.request(request)
-		.map(res => console.log("success for chat"))
-		.catch(this.handleError('getChatFromServer',[]));
+	getChatFromServer() : Observable<ChatLine[]> {
+
+		return this.http.get<ChatLine[]>(`${this.uri}classes/chat`, { headers: this.credientalHeaders })
+			.pipe(
+				tap(chatlog=>this.log(JSON.stringify(chatlog))),
+				catchError(this.handleError('getChatFromServer',[])));
+				
+		/*return this.http.get(`parse/classes/chat`, { headers: this.credientalHeaders})
+			.map(res => {res.json(); this.log('Getting chat from database');})
+			.catch(this.handleError('getChatFromServer',[]));*/
 	}
 
 	//curl -X GET -H "X-Parse-Application-Id: 12345"  -H "X-Parse-Master-Key: masterkey}" -H "Content-Type: application/json" https://desolate-bayou-57447.herokuapp.com/parse/hooks/triggers
@@ -99,8 +109,16 @@ export class ChatService {
 	
 	addMessage(name: string, message: string): Observable<any> {
 		let insertToChat = { username: name, content: message};
-
-		return this.http.post("/server/chat", JSON.stringify(insertToChat), httpOptions)
+		return this.http.post<ChatLine>(`${this.uri}classes/chat`, insertToChat, httpOptions)
+			.pipe(
+				//tap((chatlog:ChatLine) => this.log(`Adding ${name}: ${message}`)),
+				tap((chatlog:ChatLine) => {
+					//this.socket.emit('new-message',`${name}: ${message}`);
+					this.log(`Added ${name}: ${message}`);
+				}),
+				catchError(this.handleError('addMessage'))
+		);
+		/*return this.http.post("/server/chat", JSON.stringify(insertToChat), httpOptions)
 		.map(res => console.log("success for add"));
 			/*.pipe(
 				//tap((chatlog:ChatLine) => this.log(`Adding ${name}: ${message}`)),

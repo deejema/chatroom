@@ -33,9 +33,22 @@ export class ChatWindowComponent implements OnInit {
 	
 	/*	Gets the entire chat from the server.  Should only be called once	*/
 	getLog(): void {
-		this.chatService.getChatFromServer().subscribe(chatLog => {
-			this.chatLog = chatLog;
-			console.log(chatLog);
+		this.chatService.getChatFromServer().subscribe((chatLog) => {
+			// chatLog variable is an object that holds ChatLine[] in the 0th element
+			// Output: Object { results: (#) [...] } where # is number of chatlines
+			console.log("initial chatLog object"); console.log(chatLog);
+			this.chatLog = new Array<ChatLine>();
+			
+			let array = Object.keys(chatLog).map(i=>chatLog[i]); // converts object to array
+			console.log("array"); console.log(array); console.log(array[0]);
+			
+			array[0].forEach((ele, index) => {
+				this.chatLog.push(ele); // push each element from chatLog[0]
+				return index;
+			});
+			
+			this.chatLog.push({username:"********Admin", content:"Updated from Database*********"});
+			console.log("final chatlog"); console.log(this.chatLog);
 		});
 		//subscribe passes array to callback and sets the heroes property
 	}
@@ -49,7 +62,7 @@ export class ChatWindowComponent implements OnInit {
 		/*	Name and Message should be sent to the chatService to be processed	*/
 		this.chatService.addMessage(this.username, message)
 			/*	Message should locally be added to current chatLog*/
-			.subscribe((chatLine: ChatLine) => {this.chatLog.push({username:this.username, content:message}); console.log(chatLine.username + " " + chatLine.content);});
+			.subscribe((chatLine: ChatLine) => {this.chatLog.push({username:this.username, content:message}); });
 			//.subscribe((chatLine: ChatLine) => {this.getLog()});
 			// change so it instantly appends to end of local chat
 	}
