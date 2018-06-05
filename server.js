@@ -115,21 +115,8 @@ router.get('/chat', function(req, res) {
 			res.json(res);
 		}
 	});
-	/*Parse.Cloud.run('getLog')
-	.then(function(chatline) {
-		res.json(chatline);
-	});
-	*/
 	console.log("lalalalasla");
-	/*ChatLine.find(function(err, chatline) {
-		if(err) {
-			console.log(err);
-		}
-		else {
-			res.json(chatline);
-		}
-	});
-	*/
+
 });
 
 // Send a post request to add messages to server

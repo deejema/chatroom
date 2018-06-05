@@ -78,21 +78,8 @@ export class ChatService {
 	
 	/* Get chat log from server */
 	getChatFromServer() : Observable<any> {
-		/*
-			this.log('alagbfgfhdfghgfdla');
-		Parse.Cloud.run('getLog')
-		.then(function(res) {
-			this.log('alala');
-			return res;
-		});
-		*/
-		
-		/*return this.http.get<ChatLine[]>(`${this.uri}classes/chat`, { headers: this.headers })
-			.pipe(
-				tap(chatlog=>this.log('Getting chat')),
-				catchError(this.handleError('getChatFromServer',[])));
-				*/
-		return this.http.get("https://desolate-bayou-57447.herokuapp.com/parse/classes/chat")
+
+		return this.http.get("/parse/classes/chat")
 		.map(res => console.log("success for chat"))
 		.catch(this.handleError('getChatFromServer',[]));
 	}
