@@ -107,6 +107,8 @@ var chat = Parse.Object.extend("chat");
 	
 	
 router.get('/chat', function(req, res) {
+	
+	console.log("lalalalasla");
 	var Chat = new Parse.Query(chat);
 	
 	Chat.find( {
@@ -115,7 +117,6 @@ router.get('/chat', function(req, res) {
 			res.json(res);
 		}
 	});
-	console.log("lalalalasla");
 
 });
 
