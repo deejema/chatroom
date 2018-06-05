@@ -6,6 +6,7 @@ import { MessageService } from './message.service';
 import { Observable } from 'rxjs/Observable'; // Class from RxJS library
 import { of } from 'rxjs/observable/of';
 import { Http, Headers } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import * as Parse from 'parse';
 import 'rxjs/add/operator/map';
@@ -23,6 +24,7 @@ import * as io from 'socket.io-client';
 	and adding messages to the server
 */
 @Injectable()
+//@Inject(HttpClient)
 export class ChatService {
 	
 	cLog: ChatLine[]=[];

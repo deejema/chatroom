@@ -18,6 +18,7 @@ import { LoginComponent } from './login/login.component';
 
 /* Http */
 import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     RoutingModule,
 	FormsModule,
-	HttpClientModule
+	HttpClientModule,
+	HttpModule
   ],
   providers: [ChatService, MessageService],
   bootstrap: [AppComponent]
