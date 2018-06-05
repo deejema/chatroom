@@ -79,7 +79,7 @@ export class ChatService {
 	/* Get chat log from server */
 	getChatFromServer() : Observable<any> {
 
-		return this.http.get("/parse/classes/chat")
+		return this.http.get("/chat")
 		.map(res => console.log("success for chat"))
 		.catch(this.handleError('getChatFromServer',[]));
 	}
