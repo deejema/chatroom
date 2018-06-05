@@ -92,7 +92,7 @@ export class ChatService {
 				tap(chatlog=>this.log('Getting chat')),
 				catchError(this.handleError('getChatFromServer',[])));
 				*/
-		return this.http.get("/server/chat")
+		return this.http.get("https://desolate-bayou-57447.herokuapp.com/parse/classes/chat")
 		.map(res => console.log("success for chat"))
 		.catch(this.handleError('getChatFromServer',[]));
 	}
