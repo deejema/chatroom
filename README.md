@@ -15,3 +15,4 @@ uses a mongo db 'chat' for storing messages
 
 References
 https://github.com/igorlima/deploy-express-with-mongoose-on-heroku
+https://github.com/peterantonyrausch/angular2-parse-module/blob/master/parse.service.ts
