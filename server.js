@@ -134,7 +134,7 @@ router.get('/chat', function(req, res) {
 
 // Send a post request to add messages to server
 //router.route('/add').post(function(req, res) {
-router.post('/add', function(req, res) {
+router.post('/chat', function(req, res) {
 	/*var chatLine = new ChatLine(req.body);
    chatLine.save()
     .then(item => {
@@ -143,6 +143,7 @@ router.post('/add', function(req, res) {
     .catch(err => {
     res.status(400).send("unable to save to database");
     });*/
+	
 	console.log("vczxn,vcxznmv,czx,");
 });
 
@@ -173,7 +174,7 @@ var query = new Parse.Query("chat");
 query.find( {
 		success: function(res) {
 			res.data = res;
-			console.log("test");
+			console.log(res[0].get("username"));
 		},
 		error: function(err) {
 			console.log("error");

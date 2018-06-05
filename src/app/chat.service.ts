@@ -23,7 +23,6 @@ import * as io from 'socket.io-client';
 	and adding messages to the server
 */
 @Injectable()
-//@Inject(HttpClient)
 export class ChatService {
 	
 	cLog: ChatLine[]=[];
@@ -33,14 +32,14 @@ export class ChatService {
 	//cLog: string[]=[];  // string ver
 	private socket;
 	username: string;
-	headers: Headers = new Headers();
+	//headers: Headers = new Headers();
 	
 	
 	constructor(private messageService: MessageService,
 				private http: Http) { 
 		
-		this.headers.append('X-Parse-Application-Id', '12345');
-		this.headers.append('X-Parse-Master-Key','masterkey');
+		//this.headers.append('X-Parse-Application-Id', '12345');
+		//this.headers.append('X-Parse-Master-Key','masterkey');
 		//let query = new Parse.Query('Chat');
 		var Parse = require('parse');
 		//Parse.initialize("chatapp", "", "masterkey");
