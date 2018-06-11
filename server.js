@@ -178,8 +178,8 @@ subscription.on('open', () => {
 subscription.on('error', (error) => {
  console.log('subscription error: ' + error);
 });
-subscription.on('create', () => {
-	console.log('something was created');
+subscription.on('create', (chatline) => {
+	console.log(chatline.get('username') + ": " + chatline.get('content'));
 });
 subscription.on('update', () => {
 	console.log('something was updated');
