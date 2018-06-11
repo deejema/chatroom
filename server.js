@@ -178,3 +178,12 @@ subscription.on('open', () => {
 subscription.on('error', (error) => {
  console.log('subscription error: ' + error);
 });
+subscription.on('create', () => {
+	console.log('something was created');
+});
+subscription.on('update', () => {
+	console.log('something was updated');
+});
+subscription.on('delete', () => {
+	console.log('something was deleted');
+});
