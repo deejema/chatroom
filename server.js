@@ -141,7 +141,9 @@ router.post('/chat', function(req, res) {
 });*/
 // ------------------------------------------------------------
 // Enables the Live Query real-time server
-server.listen(port);
+server.listen(port, () => {
+	console.log('Connecting to port: ' + port);
+});
 var parseLiveQueryServer = ParseServer.createLiveQueryServer(server);
 	
 
@@ -180,6 +182,7 @@ subscription.on('error', (error) => {
 });
 subscription.on('create', (chatline) => {
 	console.log(chatline.get('username') + ": " + chatline.get('content'));
+	return chatline;
 });
 subscription.on('update', () => {
 	console.log('something was updated');
