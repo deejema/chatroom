@@ -136,12 +136,13 @@ router.post('/chat', function(req, res) {
 });
 
 
-app.listen(port, () => {
+/*app.listen(port, () => {
 	console.log('Listening on port ' + port);
-});
+});*/
 // ------------------------------------------------------------
 // Enables the Live Query real-time server
-//ParseServer.createLiveQueryServer(server);
+server.listen(port);
+var parseLiveQueryServer = ParseServer.createLiveQueryServer(server);
 	
 
 
@@ -170,8 +171,10 @@ query.find( {
 });
 
 
-/*let subscription = query.subscribe();
+let subscription = query.subscribe();
 subscription.on('open', () => {
  console.log('subscription opened');
 });
-*/
+subscription.on('error', (error) => {
+ console.log('subscription error: ' + error);
+});
