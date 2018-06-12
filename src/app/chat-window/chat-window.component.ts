@@ -21,7 +21,15 @@ export class ChatWindowComponent implements OnInit {
 		this.getLog();
 		this.getUsername();
 		//this.initSocketConnection();
+		this.socketConnect();
 	}
+	socketConnect() : void {
+		this.chatService.initLiveQuery();		
+		this.ioConnection = this.chatService.getLiveQueryMessage().subscribe((chatLine:ChatLine) => {
+			this.chatLog.push(chatLine);
+		});
+	}
+	
 	initSocketConnection() : void {
 		this.chatService.initSocket();
 		

@@ -40,25 +40,46 @@ export class ChatService {
 	private socket;
 	username: string;
 	private credientalHeaders: HttpHeaders; 
-	
+	private subscription;
 	
 	constructor(private messageService: MessageService,
 				private http: HttpClient) { 
 		
-		//this.headers.append('X-Parse-Application-Id', '12345');
-		//this.headers.append('X-Parse-Master-Key','masterkey');
-		//let query = new Parse.Query('Chat');
 		var Parse = require('parse');
-		//Parse.initialize("chatapp", "", "masterkey");
+		
 		this.credientalHeaders = new HttpHeaders({
 		  'X-Parse-Application-Id': "12345",
 		  'X-Parse-Master-Key': "masterkey"
 		});
 		
 		Parse.initialize("12345", null, "masterkey");
-		Parse.masterKey = "masterkey";
 		Parse.serverURL = 'https://desolate-bayou-57447.herokuapp.com/parse';
+
+
 		
+	}
+	initLiveQuery(): void {
+		let query = new Parse.Query('chat');
+		query.find({
+			success: function(res) {
+				res.data = res;
+				res.json(res);
+			}
+		});
+		this.subscription = query.subscribe();
+
+	}
+	getLiveQueryMessage(): Observable<ChatLine> {
+		return new Observable<ChatLine>(obs => {
+			this.subscription.on('create', (data) => {
+				/*	convert data String into a ChatLine object */
+				let res = data.split(':');
+				let name = res[0]; // save name 
+				res.shift(); // pop first element in res
+				let message = res.join(':'); // save content, merges array together if more than one ":" exists
+				obs.next({username: name, content: message});
+			});
+		});
 	}
 	initSocket(): void {
 		// This prompts 'user connected' for console in server.js when service is active
