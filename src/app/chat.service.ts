@@ -55,6 +55,8 @@ export class ChatService {
 		Parse.initialize("12345", null, "masterkey");
 		Parse.serverURL = 'https://desolate-bayou-57447.herokuapp.com/parse';
 
+		
+
 
 		
 	}
@@ -72,6 +74,7 @@ export class ChatService {
 	getLiveQueryMessage(): Observable<ChatLine> {
 		return new Observable<ChatLine>(obs => {
 			this.subscription.on('create', (data) => {
+				console.log(data);
 				/*	convert data String into a ChatLine object */
 				let res = data.split(':');
 				let name = res[0]; // save name 
