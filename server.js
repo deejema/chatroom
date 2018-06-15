@@ -161,7 +161,7 @@ chat.save();
 
 // Expected: Get the number of chat messages from server
 // Get an error: Code 1: bad key in untransform
-var query = new Parse.Query("chat");
+/*var query = new Parse.Query("chat");
 query.find( {
 		success: function(res) {
 			res.data = res;
@@ -190,3 +190,4 @@ subscription.on('update', () => {
 subscription.on('delete', () => {
 	console.log('something was deleted');
 });
+*/

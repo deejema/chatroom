@@ -45,42 +45,44 @@ export class ChatService {
 	constructor(private messageService: MessageService,
 				private http: HttpClient) { 
 		
-		var Parse = require('parse');
-		
+
 		this.credientalHeaders = new HttpHeaders({
 		  'X-Parse-Application-Id': "12345",
 		  'X-Parse-Master-Key': "masterkey"
 		});
 		
-		Parse.initialize("12345", null, "masterkey");
-		Parse.serverURL = 'https://desolate-bayou-57447.herokuapp.com/parse';
 
 		
 
 
 		
 	}
+	
+	/* Initializes Live Query Client, detects to see if subscription is successful */
 	initLiveQuery(): void {
+		// Initialize LiveQuery Client
+		var Parse = require('parse');
+		Parse.initialize("12345", 'abs', "masterkey");
+		Parse.serverURL = 'https://desolate-bayou-57447.herokuapp.com/parse';
+
+		// Subscription
 		let query = new Parse.Query('chat');
-		query.find({
-			success: function(res) {
-				res.data = res;
-				res.json(res);
-			}
-		});
 		this.subscription = query.subscribe();
+		console.log ("Subscription Attempted")
+		
+		this.subscription.on('open', function(obj) {
+				console.log('Subscription opened from client');
+		});		
 
 	}
 	getLiveQueryMessage(): Observable<ChatLine> {
 		return new Observable<ChatLine>(obs => {
-			this.subscription.on('create', (data) => {
-				console.log(data);
-				/*	convert data String into a ChatLine object */
-				let res = data.split(':');
-				let name = res[0]; // save name 
-				res.shift(); // pop first element in res
-				let message = res.join(':'); // save content, merges array together if more than one ":" exists
-				obs.next({username: name, content: message});
+			this.subscription.on('create', (data) => {\
+				
+				console.log(data.attributes); // Displays attribute in console
+				
+				// pushes chatline to subscription
+				obs.next({username: data.get("username"), content:data.get("content")});
 			});
 		});
 	}
@@ -111,26 +113,15 @@ export class ChatService {
 	
 	/* Get chat log from server */
 	getChatFromServer() : Observable<ChatLine[]> {
-
 		return this.http.get<ChatLine[]>(`${this.uri}classes/chat`, { headers: this.credientalHeaders })
 			.pipe(
 				tap(chatlog=>this.log(JSON.stringify(chatlog))),
 				catchError(this.handleError('getChatFromServer',[])));
-				
-		/*return this.http.get(`parse/classes/chat`, { headers: this.credientalHeaders})
-			.map(res => {res.json(); this.log('Getting chat from database');})
-			.catch(this.handleError('getChatFromServer',[]));*/
 	}
 
 	//curl -X GET -H "X-Parse-Application-Id: 12345"  -H "X-Parse-Master-Key: masterkey}" -H "Content-Type: application/json" https://desolate-bayou-57447.herokuapp.com/parse/hooks/triggers
-	/* Add a message to the chat log */
-	/* PROBLEM: Return type Observable<any> allows build to work, but it does not properly call the data	
-		back;  The data sent to the server does not properly get called as a ChatLine object and
-		this.log() does not work.  When the data is subscribed back to the component, it will improperly
-		add the field into the chat log and needs to be refreshed to see the correct chat
-	*/ 			
-		
 	
+	/* Add a message to the chat log */
 	addMessage(name: string, message: string): Observable<any> {
 		let insertToChat = { username: name, content: message};
 		return this.http.post<ChatLine>(`${this.uri}classes/chat`, insertToChat, httpOptions)
@@ -194,18 +185,5 @@ export class ChatService {
 	private log(message: string) {
 		this.messageService.add('ChatService: ' + message);
 	}
-	
-	/* // string ver
-		getLog(): string[] {
-		this.messageService.add('Getting chat');
-		return this.cLog;
-	}*/
-	
-		/* // string ver
-	addMessage(name: string, message: string): void {
-		this.log(`Added "${name}: ${message}"`);
-		this.cLog.push(`${name}: ${message}`);
-	}
-	*/
 	
 }
