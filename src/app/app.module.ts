@@ -4,8 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { RoutingModule } from './/routing.module';
 
 /* Components */
-import { ChatLogComponent } from './chat-log/chat-log.component';
-import { AddMessageComponent } from './add-message/add-message.component';
 import { ChatWindowComponent } from './chat-window/chat-window.component';
 
 import { AppComponent } from './app.component';
@@ -23,8 +21,6 @@ import { HttpModule } from '@angular/http';
 @NgModule({
   declarations: [
     AppComponent,
-    ChatLogComponent,
-    AddMessageComponent,
     ChatWindowComponent,
     MessagesComponent,
     LoginComponent
