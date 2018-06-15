@@ -50,15 +50,10 @@ export class ChatService {
 		  'X-Parse-Application-Id': "12345",
 		  'X-Parse-Master-Key': "masterkey"
 		});
-		
-
-		
-
-
-		
+				
 	}
 	
-	/* Initializes Live Query Client, detects to see if subscription is successful */
+	/** Initializes Live Query Client, detects to see if subscription is successful */
 	initLiveQuery(): void {
 		// Initialize LiveQuery Client
 		var Parse = require('parse');
@@ -75,43 +70,24 @@ export class ChatService {
 		});		
 
 	}
+	
+	/** Gets another user's message when server creates */
 	getLiveQueryMessage(): Observable<ChatLine> {
 		return new Observable<ChatLine>(obs => {
 			this.subscription.on('create', (data) => {\
 				
 				console.log(data.attributes); // Displays attribute in console
 				
-				// pushes chatline to subscription
+				// Pushes chatline to subscription
 				obs.next({username: data.get("username"), content:data.get("content")});
 			});
 		});
 	}
-	initSocket(): void {
-		// This prompts 'user connected' for console in server.js when service is active
-		this.socket = io(this.uri); 
-	}
-	getMessage(): Observable<ChatLine> { 
-		return new Observable<ChatLine>(observer => {
-		this.socket.on('updateChat', (data) => {
-				/*	convert data String into a ChatLine object */
-				let res = data.split(':');
-				let name = res[0]; // save name 
-				res.shift(); // pop first element in res
-				let message = res.join(':'); // save content, merges array together if more than one ":" exists
-				observer.next({username: name, content: message});
-			});
-		});
-	}
+
 	
-	// Delete later when cleaning code
-	getLog(): Observable<ChatLine[]> {
-		return new Observable<ChatLine[]>(observer => {
-			this.socket.on('updateChat', (data) => observer.next(data));
-		});
-		
-	}
+
 	
-	/* Get chat log from server */
+	/** Get chat log from server */
 	getChatFromServer() : Observable<ChatLine[]> {
 		return this.http.get<ChatLine[]>(`${this.uri}classes/chat`, { headers: this.credientalHeaders })
 			.pipe(
@@ -121,7 +97,7 @@ export class ChatService {
 
 	//curl -X GET -H "X-Parse-Application-Id: 12345"  -H "X-Parse-Master-Key: masterkey}" -H "Content-Type: application/json" https://desolate-bayou-57447.herokuapp.com/parse/hooks/triggers
 	
-	/* Add a message to the chat log */
+	/** Add a message to the chat log */
 	addMessage(name: string, message: string): Observable<any> {
 		let insertToChat = { username: name, content: message};
 		return this.http.post<ChatLine>(`${this.uri}classes/chat`, insertToChat, httpOptions)
@@ -133,29 +109,15 @@ export class ChatService {
 				}),
 				catchError(this.handleError('addMessage'))
 		);
-		/*return this.http.post("/server/chat", JSON.stringify(insertToChat), httpOptions)
-		.map(res => console.log("success for add"));
-			/*.pipe(
-				//tap((chatlog:ChatLine) => this.log(`Adding ${name}: ${message}`)),
-				tap((chatlog:ChatLine) => {
-					//this.socket.emit('new-message',`${name}: ${message}`);
-					this.log(`Added ${name}: ${message}`);
-				}),
-				catchError(this.handleError('addMessage'))
-			);*/
-			//.subscribe(res => this.log(`Added "${name}: ${message} to chatlog"`));
-		//this.cLog.push({ username: name, content: message}); // pushes ChatLine(username, content)
 	}
-
 	
-	
-	/*	Logs the user into the chatroom */
+	/**	Logs the user into the chatroom */
 	setUsername(name: string): void {
 		this.username = name;
 		this.log('Username \'' + this.username + '\': logged in');
 	}
 	
-	/* Returns the username and emits a broadcast to the socket server */
+	/** Returns the username and emits a broadcast to the socket server */
 	getUsername(): string {
 		this.log('Username \'' + this.username + '\':  registered in chat');
 		return this.username;
@@ -185,5 +147,52 @@ export class ChatService {
 	private log(message: string) {
 		this.messageService.add('ChatService: ' + message);
 	}
+	
+	//---------------------------------------------------------------------------
+	/* Defunct Functions: Keep for reference*/
+	/** Initialize socket for socket io - Called by chat-window */
+	initSocket(): void {
+		// This prompts 'user connected' for console in server.js when service is active
+		this.socket = io(this.uri); 
+	}
+	
+	/** Gets message from broadcast emitted */
+	getSocketMessage(): Observable<ChatLine> { 
+		return new Observable<ChatLine>(observer => {
+		this.socket.on('updateChat', (data) => {
+				/*	convert data String into a ChatLine object */
+				let res = data.split(':');
+				let name = res[0]; // save name 
+				res.shift(); // pop first element in res
+				let message = res.join(':'); // save content, merges array together if more than one ":" exists
+				observer.next({username: name, content: message});
+			});
+		});
+	}
+	/** Sends user message to server*/
+	addSocketMessage(name: string, message: string): Observable<any> {
+		let insertToChat = { username: name, content: message};
+		return this.http.post("/server/chat", JSON.stringify(insertToChat), httpOptions)
+		.pipe(
+				//tap((chatlog:ChatLine) => this.log(`Adding ${name}: ${message}`)),
+				tap((chatlog:ChatLine) => {
+					//this.socket.emit('new-message',`${name}: ${message}`);
+					this.log(`Added ${name}: ${message}`);
+				}),
+				catchError(this.handleError('addMessage'))
+			);
+			//.subscribe(res => this.log(`Added "${name}: ${message} to chatlog"`));
+		//this.cLog.push({ username: name, content: message}); // pushes ChatLine(username, content)
+	}
+	
+	/** Gets log when chat gets updated*/
+	getLog(): Observable<ChatLine[]> {
+		return new Observable<ChatLine[]>(observer => {
+			this.socket.on('updateChat', (data) => observer.next(data));
+		});
+		
+	}
+	//---------------------------------------------------------------------------
+	
 	
 }
