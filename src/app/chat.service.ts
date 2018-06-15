@@ -74,7 +74,7 @@ export class ChatService {
 	/** Gets another user's message when server creates */
 	getLiveQueryMessage(): Observable<ChatLine> {
 		return new Observable<ChatLine>(obs => {
-			this.subscription.on('create', (data) => {\
+			this.subscription.on('create', (data) => {
 				
 				console.log(data.attributes); // Displays attribute in console
 				
