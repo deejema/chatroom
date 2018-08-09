@@ -5,7 +5,7 @@ import { MessageService } from './message.service';
 // Used for Http Requests
 import { Observable } from 'rxjs/Observable'; // Class from RxJS library
 import { of } from 'rxjs/observable/of';
-import { Http, Headers, Request } from '@angular/http';
+import { Http, Headers, Request, ResponseContentType } from '@angular/http';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import * as Parse from 'parse';
@@ -53,6 +53,13 @@ export class ChatService {
 				
 	}
 	
+	download(file:string) {
+        var body = {filename:file};
+        return this.http.post('http://localhost:1337/download',body,{
+            responseType : 'blob',
+            headers:new HttpHeaders().append('Content-Type','application/json')
+		});
+	}
 	/** Initializes Live Query Client, detects to see if subscription is successful */
 	initLiveQuery(): void {
 		// Initialize LiveQuery Client

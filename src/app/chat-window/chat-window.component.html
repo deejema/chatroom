@@ -32,5 +32,6 @@
 		<input #message (keyup.enter)="add(message.value); message.value='';" maxlength="100"/>
 	</label>
 	<button id="sendmessage"(click)="add(message.value); message.value='';"> Send </button>    
+	<button id="sendmessage"(click)="download();"> Download </button>    
 </div>
 	

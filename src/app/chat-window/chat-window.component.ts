@@ -2,6 +2,12 @@ import { Component, OnInit } from '@angular/core';
 
 import { ChatService } from '../chat.service';
 import { ChatLine } from '../chatline';
+
+
+// Used for downloading
+import {saveAs} from 'file-saver';
+
+
 /* CHATLOG AND ADDMESSAGE COMPONENT NOT NEEDED */
 /*
 	Keeps track of chatroom log and chatroom input message
@@ -70,5 +76,14 @@ export class ChatWindowComponent implements OnInit {
 		this.chatService.addMessage(this.username, message)
 			.subscribe((chatLine: ChatLine) => {console.log("added username and content");/*this.chatLog.push({username:this.username, content:message});*/ });
 			// subscribe used for call, new line from user automatically gets added to array when subscription detects "create"
+	}
+	download(/*filename: string*/): void {
+		var filename = 'Hi.pdf';
+
+        this.chatService.download(filename)
+        .subscribe(
+            data => saveAs(data, filename),
+            error => console.error(error)
+);
 	}
 }

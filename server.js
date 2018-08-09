@@ -11,6 +11,8 @@ const mongoose = require('mongoose');
 // Parse server
 const ParseServer = require('parse-server').ParseServer;
 
+const request = require('request');
+
 /*
 // API file for interacting with MongoDB
 const api = require('./server/routes/api');
@@ -105,6 +107,12 @@ var chat = Parse.Object.extend("chat");
 
 //router.route('/getchat').get(function(req, res) {
 	
+router.post('/download', function(req,res,next){
+    filepath = path.join(__dirname,'/src/assets') +'/'+ req.body.filename;
+    console.log(filepath);
+	res.sendFile(filepath);
+	
+});
 	
 router.get('/chat', function(req, res) {
 	
